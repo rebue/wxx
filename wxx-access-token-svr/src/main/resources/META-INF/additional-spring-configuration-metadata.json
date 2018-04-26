@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "wx.app.id",
+    "type": "java.lang.String",
+    "description": "微信的AppId"
+  },
+  {
+    "name": "wx.app.secret",
+    "type": "java.lang.String",
+    "description": "微信的AppSecret'"
+  }
+]}

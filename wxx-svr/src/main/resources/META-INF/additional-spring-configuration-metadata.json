@@ -1,0 +1,137 @@
+{"properties": [
+  {
+    "name": "wx.token",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.token'"
+  },
+  {
+    "name": "wx.autoreply.subscribe",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.autoreply.subscribe'"
+  },
+  {
+    "name": "wx.autoreply.unsubscribe",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.autoreply.unsubscribe'"
+  },
+  {
+    "name": "wx.menu",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.menu'"
+  },
+  {
+    "name": "wx.callback.mp-verify",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.callback.mp-verify'"
+  },
+  {
+    "name": "wx.callback.mp-verify-id",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.callback.mp-verify-id'"
+  },
+  {
+    "name": "wx.app.id",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.app.id'"
+  },
+  {
+    "name": "wx.app.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.app.secret'"
+  },
+  {
+    "name": "wx.app.mchid",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.app.mchid'"
+  },
+  {
+    "name": "wx.mch.id",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.mch.id'"
+  },
+  {
+    "name": "wx.wxpay.issandbox",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.wxpay.issandbox'"
+  },
+  {
+    "name": "wx.wxpay.test",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.wxpay.test'"
+  },
+  {
+    "name": "wx.wxpay.signkey",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.wxpay.signkey'"
+  },
+  {
+    "name": "wx.wxpay.pay-notify-url",
+    "type": "java.lang.String",
+    "description": "A description for 'wx.wxpay.pay-notify-url'"
+  },
+  {
+    "name": "wxx.app.id",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.app.id'"
+  },
+  {
+    "name": "wxx.app.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.app.secret'"
+  },
+  {
+    "name": "wxx.app.token",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.app.token'"
+  },
+  {
+    "name": "wxx.autoreply.subscribe",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.autoreply.subscribe'"
+  },
+  {
+    "name": "wxx.menu",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.menu'"
+  },
+  {
+    "name": "wxx.login-callback.url",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.login-callback.url'"
+  },
+  {
+    "name": "wxx.login-callback.sign-key",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.login-callback.sign-key'"
+  },
+  {
+    "name": "wxx.login-callback.signkey",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.login-callback.signkey'"
+  },
+  {
+    "name": "wxx.wxpay.mchid",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.wxpay.mchid'"
+  },
+  {
+    "name": "wxx.wxpay.test",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.wxpay.test'"
+  },
+  {
+    "name": "wxx.wxpay.signkey",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.wxpay.signkey'"
+  },
+  {
+    "name": "wxx.wxpay.pay-notify-url",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.wxpay.pay-notify-url'"
+  },
+  {
+    "name": "wxx.wxpay.sign-key",
+    "type": "java.lang.String",
+    "description": "A description for 'wxx.wxpay.sign-key'"
+  }
+]}

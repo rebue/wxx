@@ -1,0 +1,42 @@
+wxx:
+  app:
+    id: xxxxxxxxxxxxxxxxxxxxx
+    secret: xxxxxxxxxxxxxxxxxxxxxx
+    # 微信认证服务器时使用
+    token: xxxxxxxxxxxxxxxxxxx
+    # 加密消息的密钥
+    encodingAesKey: xxxxxxxxxxxxxxxxxxx
+  autoreply:
+    # 用户关注事件自动回复的文字
+    subscribe: 欢迎关注本公众号
+  # 自定义菜单
+  menu: '{"button":[{"type":"view","name":"买买买","url":"https://open.weixin.qq.com/connect/oauth2/authorize?appid=xxxxxxxxxxxxxxxx&redirect_uri=http%3A%2F%2Fwww.xxxxxxxxx.com%2Fwxx-svr%2Fwxx%2Fresponse%2Fauthorizecode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"}]}'
+  # 登录回调
+  loginCallback:
+    url: http://xxxxxxxxxxxxxx
+    # 登录回调的签名key
+    signKey: xxxxxxxxxxxxxxxxx
+  wxpay:
+    mchid: xxxxxxxxxxx
+    # 是否沙箱测试
+    test: true
+    signKey: xxxxxxxxxxxxxxxx
+    # 微信支付-支付完成通知的URL
+    payNotifyUrl: http://xxxxxxxxxxxxxxxxxxxx
+
+spring:
+  redis:
+    password: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    # 最大实例数
+    maxTotal: 100
+    # 最大空闲实例数
+    maxIdle: 10
+    # (创建实例时)最大等待时间
+    maxWaitMillis: 10000
+    # (创建实例时)是否验证
+    testOnBorrow: false
+    # 集群类型 (Single,RedisCluster)
+    clusterType: Single
+    # Single类型需要配置连接Redis的host和port
+    host: xxxxxxxxxxxxxxxxx
+    port: 6379

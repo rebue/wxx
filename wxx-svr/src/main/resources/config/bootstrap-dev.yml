@@ -1,0 +1,37 @@
+debug: true
+
+server:
+  port: 20080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/
+
+logging:
+  config: classpath:config/log4j2.xml
+  level:
+    root: info
+    rebue: trace
+    com.netflix.discovery: warn
+
+spring:
+  rabbitmq:
+      host: 127.0.0.1
+      port: 5672
+      username: guest
+      password: guest
+  redis:
+    # 最大实例数
+    maxTotal: 100
+    # 最大空闲实例数
+    maxIdle: 10
+    # (创建实例时)最大等待时间
+    maxWaitMillis: 10000
+    # (创建实例时)是否验证
+    testOnBorrow: false
+    # 集群类型 (Single,RedisCluster)
+    clusterType: Single
+    # Single类型需要配置连接Redis的host和port
+    host: 127.0.0.1
+    port: 6379
