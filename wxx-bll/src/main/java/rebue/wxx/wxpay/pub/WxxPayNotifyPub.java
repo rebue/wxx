@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import rebue.sbs.rabbit.RabbitProducer;
-import rebue.wxx.wxpay.co.WxpayExchangeCo;
+import rebue.wxx.wxpay.co.WxpayNotifyCo;
 import rebue.wxx.wxpay.ro.WxpayNotifyRo;
 
 /**
@@ -40,22 +40,22 @@ public class WxxPayNotifyPub implements ApplicationListener<ApplicationStartedEv
             return;
         bStartedFlag = true;
 
-        _log.info("声明微信支付消息的Exchange");
         try {
-            producer.declareExchange(WxpayExchangeCo.PAY_NOTIFY_EXCHANGE_NAME);
+            _log.info("微信支付-声明支付完成消息的Exchange");
+            producer.declareExchange(WxpayNotifyCo.PAY_NOTIFY_EXCHANGE_NAME);
         } catch (Exception e) {
-            String msg = "声明微信支付消息的Exchange失败";
+            String msg = "微信支付-声明支付完成消息的Exchange失败";
             _log.error(msg, e);
             throw new RuntimeException(msg, e);
         }
     }
 
     /**
-     * 发送消息
+     * 微信支付-发送支付完成的消息
      */
     public void send(WxpayNotifyRo ro) {
-        _log.info("发送微信支付-支付完成的消息");
-        producer.send(WxpayExchangeCo.PAY_NOTIFY_EXCHANGE_NAME, ro);
+        _log.info("微信支付-发送支付完成的消息");
+        producer.send(WxpayNotifyCo.PAY_NOTIFY_EXCHANGE_NAME, ro);
     }
 
 }

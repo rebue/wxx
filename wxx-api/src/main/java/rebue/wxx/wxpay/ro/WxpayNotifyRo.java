@@ -85,8 +85,8 @@ public class WxpayNotifyRo {
 
     @Override
     public String toString() {
-        return "PayNotifyRo [userId=" + userId + ", payAccountId=" + payAccountId + ", payAmount=" + payAmount
-                + ", payOrderId=" + payOrderId + ", orderId=" + orderId + ", payTime=" + payTime + "]";
+        return "WxpayNotifyRo [userId=" + userId + ", payAccountId=" + payAccountId + ", payAmount=" + payAmount + ", payOrderId=" + payOrderId + ", orderId=" + orderId
+                + ", payTime=" + payTime + "]";
     }
 
 }

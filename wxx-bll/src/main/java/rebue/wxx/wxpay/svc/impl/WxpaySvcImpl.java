@@ -93,7 +93,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
     private String              wxpayPayNotifyUrl;
 
     @Resource
-    private WxxPayNotifyPub     payNotifyPub;
+    private WxxPayNotifyPub     wxpayNotifyPub;
     @Resource
     private RedisClient         redisClient;
 
@@ -379,7 +379,6 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
             WxpayNotifyRo notifyRo = new WxpayNotifyRo();
             notifyRo.setUserId(Long.parseLong(String.valueOf(reqParams.get("attach"))));                            // 用户ID
             notifyRo.setPayAccountId(String.valueOf(reqParams.get("openid")));                                      // 微信ID
-//            ro.setPayType(PayTypeDic.WXPAY);                                                                      // TODO 支付类型-微信支付
             notifyRo.setPayAmount(payAmount);                                                                       // 订单金额(将“分”转为“元”)
             notifyRo.setPayOrderId(String.valueOf(reqParams.get("transaction_id")));                                // 微信支付订单号
             notifyRo.setOrderId(String.valueOf(reqParams.get("out_trade_no")));                                     // 订单号
@@ -395,7 +394,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
                 roMap.put("return_msg", "解析支付完成时间格式失败: " + sPayTime);
                 return XmlUtils.mapToXml(roMap);
             }
-            payNotifyPub.send(notifyRo);
+            wxpayNotifyPub.send(notifyRo);
         }
 
         _log.info("返回微信成功处理数据: {}", roMap);

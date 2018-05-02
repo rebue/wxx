@@ -5,10 +5,8 @@ import java.io.IOException;
 import org.dom4j.DocumentException;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,7 +16,6 @@ import rebue.wheel.RandomEx;
 import rebue.wxx.wxpay.ro.WxpayOrderQueryRo;
 import rebue.wxx.wxpay.to.WxpayPrepayTo;
 
-@RunWith(SpringJUnit4ClassRunner.class)
 public class WxpayTest {
     private final static Logger _log     = LoggerFactory.getLogger(WxpayTest.class);
 
