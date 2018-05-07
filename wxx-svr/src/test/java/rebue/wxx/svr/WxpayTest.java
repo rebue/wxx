@@ -36,6 +36,8 @@ public class WxpayTest {
      */
     private final static String WX_ID                 = "onCVJv-B-9g1a5FcUxtI1bXqGWEo";
 
+    private Long                userId                = 467599399665664002L;
+
     private ObjectMapper        _objectMapper         = new ObjectMapper();
 
     /**
@@ -44,7 +46,7 @@ public class WxpayTest {
     @Test
     public void test01() throws IOException, RedisSetException, InterruptedException, DocumentException {
         WxpayPrepayTo to = new WxpayPrepayTo();
-        to.setUserId(425547210030186496L);
+        to.setUserId(userId);
         to.setWxId(WX_ID);
         to.setOrderId(RandomEx.randomUUID());
         to.setTradeTitle("支付交易的标题");

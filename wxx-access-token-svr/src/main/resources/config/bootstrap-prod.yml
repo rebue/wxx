@@ -24,11 +24,12 @@ spring:
       username: guest
       password: guest
   cloud:
-    config:
-      profile: prod
-      discovery:
-        enabled: true #开启通过服务来访问Config Server的功能
-        service-id: config-server
+# 本服务不需要另外配置，须把配置中心注释起来，否则不能正常提供服务
+#    config:
+#      profile: prod
+#      discovery:
+#        enabled: true #开启通过服务来访问Config Server的功能
+#        service-id: config-server
     bus:
       enabled: true
       trace:
