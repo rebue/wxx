@@ -15,6 +15,5 @@
 			<groupId>com.github.rebue.wheel</groupId>
 			<artifactId>wheel-core</artifactId>
 		</dependency>
-
 	</dependencies>
 </project>

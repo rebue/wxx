@@ -131,7 +131,14 @@ public class WxxRequestSvcImpl implements WxxRequestSvc {
     public Map<String, Object> getUserInfo(String webAccessToken, String openId) throws IOException {
         _log.info("准备向微信服务器发送请求以获取用户信息: webAccessToken={},openId={}", webAccessToken, openId);
         String url = String.format(GET_USER_INFO_URL, webAccessToken, openId);
-        return jsonParser.parseMap(OkhttpUtils.get(url));
+        String resp = OkhttpUtils.get(url);
+        Map<String, Object> result = jsonParser.parseMap(resp);
+        if (result.get("errcode") != null) {
+            String msg = "获取微信的用户信息不成功";
+            _log.error("{}: {}", msg, resp);
+            throw new RuntimeException(msg);
+        }
+        return result;
     }
 
     /**
