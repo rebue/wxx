@@ -1,6 +1,7 @@
 package rebue.wxx.wxpay.svc.impl;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.LinkedHashMap;
@@ -379,7 +380,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
             WxpayNotifyRo notifyRo = new WxpayNotifyRo();
             notifyRo.setUserId(Long.parseLong(String.valueOf(reqParams.get("attach"))));                            // 用户ID
             notifyRo.setPayAccountId(String.valueOf(reqParams.get("openid")));                                      // 微信ID
-            notifyRo.setPayAmount(payAmount);                                                                       // 订单金额(将“分”转为“元”)
+            notifyRo.setPayAmount(new BigDecimal(payAmount.toString()));                                            // 订单金额(将“分”转为“元”)
             notifyRo.setPayOrderId(String.valueOf(reqParams.get("transaction_id")));                                // 微信支付订单号
             notifyRo.setOrderId(String.valueOf(reqParams.get("out_trade_no")));                                     // 订单号
             String sPayTime = String.valueOf(reqParams.get("time_end"));                                            // 支付完成时间

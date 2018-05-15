@@ -1,5 +1,6 @@
 package rebue.wxx.wxpay.ro;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,27 +14,27 @@ public class WxpayNotifyRo {
     /**
      * 用户ID
      */
-    private Long   userId;
+    private Long       userId;
     /**
      * 支付账户ID
      */
-    private String payAccountId;
+    private String     payAccountId;
     /**
      * 支付交易的金额(单位为元)
      */
-    private Double payAmount;
+    private BigDecimal payAmount;
     /**
      * 支付订单号
      */
-    private String payOrderId;
+    private String     payOrderId;
     /**
      * 订单号
      */
-    private String orderId;
+    private String     orderId;
     /**
      * 支付完成时间
      */
-    private Date   payTime;
+    private Date       payTime;
 
     public Long getUserId() {
         return userId;
@@ -51,11 +52,11 @@ public class WxpayNotifyRo {
         this.payAccountId = payAccountId;
     }
 
-    public Double getPayAmount() {
+    public BigDecimal getPayAmount() {
         return payAmount;
     }
 
-    public void setPayAmount(Double payAmount) {
+    public void setPayAmount(BigDecimal payAmount) {
         this.payAmount = payAmount;
     }
 
