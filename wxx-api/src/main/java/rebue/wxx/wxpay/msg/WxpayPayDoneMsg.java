@@ -1,4 +1,4 @@
-package rebue.wxx.wxpay.ro;
+package rebue.wxx.wxpay.msg;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -7,10 +7,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
- * 微信支付的支付完成通知的解析结果
+ * 微信支付的支付完成通知
  */
 @JsonInclude(Include.NON_NULL)
-public class WxpayNotifyRo {
+public class WxpayPayDoneMsg {
     /**
      * 用户ID
      */

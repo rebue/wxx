@@ -9,15 +9,15 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import rebue.sbs.rabbit.RabbitProducer;
-import rebue.wxx.wxpay.co.WxpayNotifyCo;
-import rebue.wxx.wxpay.ro.WxpayNotifyRo;
+import rebue.wxx.wxpay.co.WxpayExchangeCo;
+import rebue.wxx.wxpay.msg.WxpayPayDoneMsg;
 
 /**
  * 微信支付-支付完成通知的发布者
  */
 @Component
-public class WxxPayNotifyPub implements ApplicationListener<ApplicationStartedEvent> {
-    private static final Logger _log         = LoggerFactory.getLogger(WxxPayNotifyPub.class);
+public class WxpayPayDonePub implements ApplicationListener<ApplicationStartedEvent> {
+    private static final Logger _log         = LoggerFactory.getLogger(WxpayPayDonePub.class);
 
     /**
      * 启动标志，防止多次启动
@@ -42,7 +42,7 @@ public class WxxPayNotifyPub implements ApplicationListener<ApplicationStartedEv
 
         try {
             _log.info("微信支付-声明支付完成消息的Exchange");
-            producer.declareExchange(WxpayNotifyCo.PAY_NOTIFY_EXCHANGE_NAME);
+            producer.declareExchange(WxpayExchangeCo.PAY_DONE_EXCHANGE_NAME);
         } catch (Exception e) {
             String msg = "微信支付-声明支付完成消息的Exchange失败";
             _log.error(msg, e);
@@ -53,9 +53,9 @@ public class WxxPayNotifyPub implements ApplicationListener<ApplicationStartedEv
     /**
      * 微信支付-发送支付完成的消息
      */
-    public void send(WxpayNotifyRo ro) {
+    public void send(WxpayPayDoneMsg ro) {
         _log.info("微信支付-发送支付完成的消息");
-        producer.send(WxpayNotifyCo.PAY_NOTIFY_EXCHANGE_NAME, ro);
+        producer.send(WxpayExchangeCo.PAY_DONE_EXCHANGE_NAME, ro);
     }
 
 }

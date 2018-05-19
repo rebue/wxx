@@ -28,8 +28,8 @@ import rebue.wheel.XmlUtils;
 import rebue.wheel.turing.SignUtils;
 import rebue.wxx.wxpay.co.WxpayRedisCo;
 import rebue.wxx.wxpay.dic.WxpayPrepayResultDic;
-import rebue.wxx.wxpay.pub.WxxPayNotifyPub;
-import rebue.wxx.wxpay.ro.WxpayNotifyRo;
+import rebue.wxx.wxpay.msg.WxpayPayDoneMsg;
+import rebue.wxx.wxpay.pub.WxpayPayDonePub;
 import rebue.wxx.wxpay.ro.WxpayOrderQueryRo;
 import rebue.wxx.wxpay.ro.WxpayPrepayRo;
 import rebue.wxx.wxpay.svc.WxpaySvc;
@@ -94,7 +94,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
     private String              wxpayPayNotifyUrl;
 
     @Resource
-    private WxxPayNotifyPub     wxpayNotifyPub;
+    private WxpayPayDonePub     wxpayPayDonePub;
     @Resource
     private RedisClient         redisClient;
 
@@ -377,17 +377,17 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 
             _log.info("将微信支付完成的消息加入消息队列");
             // 取出响应的关键内容作为返回值
-            WxpayNotifyRo notifyRo = new WxpayNotifyRo();
-            notifyRo.setUserId(Long.parseLong(String.valueOf(reqParams.get("attach"))));                            // 用户ID
-            notifyRo.setPayAccountId(String.valueOf(reqParams.get("openid")));                                      // 微信ID
-            notifyRo.setPayAmount(new BigDecimal(payAmount.toString()));                                            // 订单金额(将“分”转为“元”)
-            notifyRo.setPayOrderId(String.valueOf(reqParams.get("transaction_id")));                                // 微信支付订单号
-            notifyRo.setOrderId(String.valueOf(reqParams.get("out_trade_no")));                                     // 订单号
+            WxpayPayDoneMsg msg = new WxpayPayDoneMsg();
+            msg.setUserId(Long.parseLong(String.valueOf(reqParams.get("attach"))));                            // 用户ID
+            msg.setPayAccountId(String.valueOf(reqParams.get("openid")));                                      // 微信ID
+            msg.setPayAmount(new BigDecimal(payAmount.toString()));                                            // 订单金额(将“分”转为“元”)
+            msg.setPayOrderId(String.valueOf(reqParams.get("transaction_id")));                                // 微信支付订单号
+            msg.setOrderId(String.valueOf(reqParams.get("out_trade_no")));                                     // 订单号
             String sPayTime = String.valueOf(reqParams.get("time_end"));                                            // 支付完成时间
             // 解析支付完成时间
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
             try {
-                notifyRo.setPayTime(sdf.parse(sPayTime));
+                msg.setPayTime(sdf.parse(sPayTime));
             } catch (ParseException e) {
                 _log.error("解析支付完成时间格式失败: {}", sPayTime);
                 _log.info("返回解析支付完成时间格式失败");
@@ -395,7 +395,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
                 roMap.put("return_msg", "解析支付完成时间格式失败: " + sPayTime);
                 return XmlUtils.mapToXml(roMap);
             }
-            wxpayNotifyPub.send(notifyRo);
+            wxpayPayDonePub.send(msg);
         }
 
         _log.info("返回微信成功处理数据: {}", roMap);
