@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import rebue.wheel.HtmlUtils;
 import rebue.wheel.OkhttpUtils;
 import rebue.wheel.turing.SignUtils;
 import rebue.wxx.access.token.svr.feign.WxxAccessTokenSvc;
@@ -148,18 +149,19 @@ public class WxxRequestSvcImpl implements WxxRequestSvc {
     public String callbackLogin(Map<String, Object> userInfo) {
         _log.info("准备向网站发送请求以获取网站登录的回调页面: {}", userInfo);
         SignUtils.sign1(userInfo, wxLoginCallbackSignKey);
-        try {
-            return OkhttpUtils.get(wxLoginCallbackUrl, userInfo);
-        } catch (IOException e) {
-            String msg = "获取网站登录的回调页面出错";
-            _log.error(msg, e);
-            return String.format("<!DOCTYPE HTML>\n"  //
-                    + "<html>\n" //
-                    + "<body>\n"  //
-                    + "<span style=\"font-size:70px\">%s</span>" //
-                    + "</body>\n" //
-                    + "</html>", msg);
-        }
+//        try {
+//            return OkhttpUtils.get(wxLoginCallbackUrl, userInfo);
+        return HtmlUtils.autoPostByFormParams(wxLoginCallbackUrl, userInfo);
+//        } catch (IOException e) {
+//            String msg = "获取网站登录的回调页面出错";
+//            _log.error(msg, e);
+//            return String.format("<!DOCTYPE HTML>\n"  //
+//                    + "<html>\n" //
+//                    + "<body>\n"  //
+//                    + "<span style=\"font-size:70px\">%s</span>" //
+//                    + "</body>\n" //
+//                    + "</html>", msg);
+//        }
     }
 
     /**
