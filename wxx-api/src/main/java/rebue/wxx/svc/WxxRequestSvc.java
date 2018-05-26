@@ -29,11 +29,6 @@ public interface WxxRequestSvc {
     Map<String, Object> getUserInfo(String webAccessToken, String openId) throws IOException;
 
     /**
-     * 网页授权第五步：回调登录页面
-     */
-    String callbackLogin(Map<String, Object> userInfo) throws IOException;
-
-    /**
      * 获取微信服务器IP地址
      */
     List<String> getWxServerIps();

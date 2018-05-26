@@ -25,5 +25,5 @@ cd ~/workspaces/02/wxx/wxx-api-svr
 ## 4. 创建容器并启动
 
 ```sh
-docker run -d --net=host --name wxx-svr-a -v /usr/local/wxx-svr/a:/usr/local/myservice --restart=always nnzbz/spring-boot-app
+docker run -d --net=host --name wxx-svr-a -v /usr/local/wxx-svr/a:/usr/local/myservice -v /usr/local/wxx-svr/templates:/usr/local/myservice/templates --restart=always nnzbz/spring-boot-app
 ```

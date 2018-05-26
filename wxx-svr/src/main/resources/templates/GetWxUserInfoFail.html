@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui.css" />
+</head>
+
+<body ontouchstart>
+	<div id="container">获取微信用户信息失败</div>
+	<form>
+		<div class="weui-btn-area" onclick="closeWindow">
+			<a href="javascript:;" class="weui-btn weui-btn_primary js_btn">关闭</a>
+		</div>
+	</form>
+</body>
+<script type="text/javascript">
+	function closeWindow() {
+		WeixinJSBridge.call('closeWindow');
+	}
+</script>
+
+</html>

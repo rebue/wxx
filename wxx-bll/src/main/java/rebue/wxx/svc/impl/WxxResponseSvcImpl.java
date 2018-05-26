@@ -120,22 +120,20 @@ public class WxxResponseSvcImpl implements WxxResponseSvc {
      * 网页授权第二步：通过code换取网页授权的web_access_token
      * 网页授权第三步：刷新web_access_token缓存时限
      * 网页授权第四步：获取用户信息
-     * 网页授权第五步：回调登录页面(请求参数为添加签名后的用户信息map)
      * 
      * @param code
      *            获取到授权的code
+     * @return 返回有微信用户信息的Map
      */
     @Override
-    public String authorizeCode(String code) throws IOException {
+    public Map<String, Object> authorizeCode(String code) throws IOException {
         _log.info("网页授权第一步：用户同意授权，获取到code:{}", code);
         _log.info("网页授权第二步：通过code换取网页授权web_access_token");
         WxRequestWebAccessTokenRo webAccessToken = wxxRequestSvc.getWebAccessToken(code);
         _log.info("网页授权第三步：刷新web_access_token缓存时限");
         wxxRequestSvc.refreshWebAccessToken(webAccessToken.getRefresh_token());
         _log.info("网页授权第四步：获取用户信息");
-        Map<String, Object> userInfo = wxxRequestSvc.getUserInfo(webAccessToken.getAccess_token(), webAccessToken.getOpenid());
-        _log.info("回调登录页面(请求参数为添加签名后的用户信息map)");
-        return wxxRequestSvc.callbackLogin(userInfo);
+        return wxxRequestSvc.getUserInfo(webAccessToken.getAccess_token(), webAccessToken.getOpenid());
     }
 
 }

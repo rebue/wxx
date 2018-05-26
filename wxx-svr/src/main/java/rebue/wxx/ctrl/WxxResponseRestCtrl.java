@@ -1,6 +1,7 @@
 package rebue.wxx.ctrl;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.dom4j.DocumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import rebue.wheel.XmlUtils;
+import rebue.wheel.turing.SignUtils;
+import rebue.wxx.svc.WxxRequestSvc;
 import rebue.wxx.svc.WxxResponseSvc;
 import rebue.wxx.vo.WxAuthorizeVo;
 
@@ -30,6 +35,19 @@ public class WxxResponseRestCtrl {
 
     @Resource
     private WxxResponseSvc      wxxResponseSvc;
+    @Resource
+    private WxxRequestSvc       wxxRequestSvc;
+
+    /**
+     * 微信登录回调的地址
+     */
+    @Value("${wxx.loginCallback.url}")
+    private String              wxLoginCallbackUrl;
+    /**
+     * 微信登录回调的签名key
+     */
+    @Value("${wxx.loginCallback.signKey}")
+    private String              wxLoginCallbackSignKey;
 
     /**
      * 提供给微信验证本服务器身份的接口
@@ -62,21 +80,28 @@ public class WxxResponseRestCtrl {
     }
 
     /**
-     * 网页授权第一步：用户同意授权，获取到code
-     * 网页授权第二步：通过code换取网页授权的web_access_token
-     * 网页授权第三步：刷新web_access_token缓存时限
-     * 网页授权第四步：获取用户信息
-     * 网页授权第五步：回调登录页面
+     * 微信授权回调接口，重定向登录页面
      * 
      * @param code
      *            获取到授权的code
      */
     @GetMapping(value = "/wxx/response/authorizecode", produces = MediaType.TEXT_HTML_VALUE)
-    String authorizeCode(@RequestParam("code") String code) throws IOException {
-        _log.info("received authorize code params: {}", code);
-        String html = wxxResponseSvc.authorizeCode(code);
-        _log.info("返回网站登录页面:{}", html);
-        return html;
+    ModelAndView authorizeCode(@RequestParam("code") String code) throws IOException {
+        _log.info("接收到微信授权回调: {}", code);
+        Map<String, Object> userInfo = wxxResponseSvc.authorizeCode(code);
+        ModelAndView modelAndView;
+        if (userInfo == null) {
+            _log.info("返回获取微信用户信息失败页面");
+            modelAndView = new ModelAndView("GetWxUserInfoFail");
+        } else {
+            _log.info("给用户信息map添加签名(重定向登录页面需要签名)");
+            SignUtils.sign1(userInfo, wxLoginCallbackSignKey);
+            _log.info("跳转用户登录页面");
+            modelAndView = new ModelAndView("ForwardUserLogin");
+            modelAndView.addObject("forwardUrl", wxLoginCallbackUrl);
+            modelAndView.addObject("userInfo", userInfo);
+        }
+        return modelAndView;
     }
 
 }

@@ -22,11 +22,11 @@ public interface WxxResponseSvc {
      * 网页授权第二步：通过code换取网页授权的web_access_token
      * 网页授权第三步：刷新web_access_token缓存时限
      * 网页授权第四步：获取用户信息
-     * 网页授权第五步：回调登录页面(请求参数为添加签名后的用户信息map)
      * 
      * @param code
      *            获取到授权的code
+     * @return 返回有微信用户信息的Map
      */
+    Map<String, Object> authorizeCode(String code) throws IOException;
 
-    String authorizeCode(String code) throws IOException;
 }

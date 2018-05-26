@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import rebue.wheel.HtmlUtils;
 import rebue.wheel.OkhttpUtils;
-import rebue.wheel.turing.SignUtils;
 import rebue.wxx.access.token.svr.feign.WxxAccessTokenSvc;
 import rebue.wxx.ro.WxRequestWebAccessTokenRo;
 import rebue.wxx.svc.WxxRequestSvc;
@@ -66,16 +64,6 @@ public class WxxRequestSvcImpl implements WxxRequestSvc {
      */
     @Value("${wxx.menu}")
     private String              wxMenu;
-    /**
-     * 微信登录回调的地址
-     */
-    @Value("${wxx.loginCallback.url}")
-    private String              wxLoginCallbackUrl;
-    /**
-     * 微信登录回调的签名key
-     */
-    @Value("${wxx.loginCallback.signKey}")
-    private String              wxLoginCallbackSignKey;
 
     @Resource
     private WxxAccessTokenSvc   accessTokenSvc;
@@ -137,31 +125,9 @@ public class WxxRequestSvcImpl implements WxxRequestSvc {
         if (result.get("errcode") != null) {
             String msg = "获取微信的用户信息不成功";
             _log.error("{}: {}", msg, resp);
-            throw new RuntimeException(msg);
+            return null;
         }
         return result;
-    }
-
-    /**
-     * 网页授权第五步：回调登录页面
-     */
-    @Override
-    public String callbackLogin(Map<String, Object> userInfo) {
-        _log.info("准备向网站发送请求以获取网站登录的回调页面: {}", userInfo);
-        SignUtils.sign1(userInfo, wxLoginCallbackSignKey);
-//        try {
-//            return OkhttpUtils.get(wxLoginCallbackUrl, userInfo);
-        return HtmlUtils.autoPostByFormParams(wxLoginCallbackUrl, userInfo);
-//        } catch (IOException e) {
-//            String msg = "获取网站登录的回调页面出错";
-//            _log.error(msg, e);
-//            return String.format("<!DOCTYPE HTML>\n"  //
-//                    + "<html>\n" //
-//                    + "<body>\n"  //
-//                    + "<span style=\"font-size:70px\">%s</span>" //
-//                    + "</body>\n" //
-//                    + "</html>", msg);
-//        }
     }
 
     /**

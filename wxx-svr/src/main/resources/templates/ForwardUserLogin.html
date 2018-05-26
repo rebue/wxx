@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui.css" />
+</head>
+
+<body ontouchstart>
+	<div id="container">获取微信用户信息成功，正在跳转......</div>
+	<form name="form1" method="post" th:action="${forwardUrl}">
+		<input th:each="entry : ${userInfo}" th:name="${entry.key}" th:value="${entry.value}" type="hidden" />
+	</form>
+</body>
+<script type="text/javascript">
+	document.form1.submit();
+</script>
+</html>
