@@ -44,6 +44,11 @@ public class WxxResponseRestCtrl {
     @Value("${wxx.loginCallback.url}")
     private String              wxLoginCallbackUrl;
     /**
+     * 微信登录回调的地址方法类型(GET/POST/PUT/DELETE....)
+     */
+    @Value("${wxx.loginCallback.methodType}")
+    private String              wxLoginCallbackMethodType;
+    /**
      * 微信登录回调的签名key
      */
     @Value("${wxx.loginCallback.signKey}")
@@ -55,7 +60,7 @@ public class WxxResponseRestCtrl {
      * 而要注意，微信通过同样的url，发出POST请求时却是推送消息过来，
      * 所以GET和POST要区分对待，本方法是处理GET的，下一个方法是处理POST的
      */
-    @GetMapping("/wxx/response")
+    @GetMapping(value = "/wxx/response", produces = MediaType.TEXT_PLAIN_VALUE)
     String authorize(WxAuthorizeVo vo) {
         _log.info("received authorize params: {}", vo);
         return wxxResponseSvc.authorize(vo);
@@ -64,7 +69,7 @@ public class WxxResponseRestCtrl {
     /**
      * 接收微信服务器发来的消息
      */
-    @PostMapping("/wxx/response")
+    @PostMapping(value = "/wxx/response", produces = MediaType.TEXT_PLAIN_VALUE)
     String receiveMsg(HttpServletRequest req) throws IOException, DocumentException {
         _log.info("received msg");
         return wxxResponseSvc.handleMsg(XmlUtils.xmlToMap(req.getInputStream()));
@@ -73,7 +78,7 @@ public class WxxResponseRestCtrl {
     /**
      * 网页授权需要验证此链接
      */
-    @GetMapping("/wxx/MP_verify_{id}.txt")
+    @GetMapping(value = "/wxx/MP_verify_{id}.txt", produces = MediaType.TEXT_PLAIN_VALUE)
     String mpVerify(@PathVariable("id") String id) {
         _log.info("mp_verify_{}", id);
         return id;
@@ -85,7 +90,7 @@ public class WxxResponseRestCtrl {
      * @param code
      *            获取到授权的code
      */
-    @GetMapping(value = "/wxx/response/authorizecode", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping("/wxx/response/authorizecode")
     ModelAndView authorizeCode(@RequestParam("code") String code) throws IOException {
         _log.info("接收到微信授权回调: {}", code);
         Map<String, Object> userInfo = wxxResponseSvc.authorizeCode(code);
@@ -98,6 +103,7 @@ public class WxxResponseRestCtrl {
             SignUtils.sign1(userInfo, wxLoginCallbackSignKey);
             _log.info("跳转用户登录页面");
             modelAndView = new ModelAndView("ForwardUserLogin");
+            modelAndView.addObject("methodType", wxLoginCallbackMethodType);
             modelAndView.addObject("forwardUrl", wxLoginCallbackUrl);
             modelAndView.addObject("userInfo", userInfo);
         }

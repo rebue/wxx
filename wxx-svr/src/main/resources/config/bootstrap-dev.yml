@@ -35,3 +35,5 @@ spring:
     # Single类型需要配置连接Redis的host和port
     host: 127.0.0.1
     port: 6379
+  thymeleaf:
+    cache: false
