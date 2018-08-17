@@ -3,10 +3,14 @@ debug: true
 server:
   port: 20080
 
+thymeleaf:
+    # 将模板文件配置在jar包外部，为jar包当前所在的路径的相对位置
+    prefix: classpath:./templates/
+
 eureka:
   client:
     service-url:
-      defaultZone: http://127.0.0.1:8761/eureka/
+      defaultZone: http://192.168.1.201:8761/eureka/
 
 logging:
   config: classpath:config/log4j2.xml
@@ -14,10 +18,10 @@ logging:
     root: info
     rebue: trace
     com.netflix.discovery: warn
-
+    
 spring:
   rabbitmq:
-      host: 127.0.0.1
+      host: 192.168.1.201
       port: 5672
       username: guest
       password: guest
@@ -33,7 +37,21 @@ spring:
     # 集群类型 (Single,RedisCluster)
     clusterType: Single
     # Single类型需要配置连接Redis的host和port
-    host: 127.0.0.1
+    host: 192.168.1.200
     port: 6379
+    password: 123456
   thymeleaf:
     cache: false
+    
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000
+ribbon:  
+  ReadTimeout: 10000  
+  ConnectTimeout: 10000
+
+    

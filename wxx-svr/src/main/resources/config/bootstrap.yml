@@ -13,9 +13,6 @@ spring:
 #    # 将模板文件配置在jar包外部，为jar包当前所在的路径的相对位置
 #    template-loader-path:
 #      - file:./templates/
-  thymeleaf:
-    # 将模板文件配置在jar包外部，为jar包当前所在的路径的相对位置
-    prefix: file:./templates/
     
 eureka:
   instance:
