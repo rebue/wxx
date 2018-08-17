@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Service;
+import org.xml.sax.SAXException;
 
 import rebue.sbs.redis.RedisClient;
 import rebue.sbs.redis.RedisSetException;
@@ -119,13 +120,19 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 
         _log.info("微信支付服务初始化");
         if (wxpayTest)
-            getSignkeyOfSandbox();
+			try {
+				getSignkeyOfSandbox();
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     }
 
     /**
      * 获取沙箱测试的签名密钥
+     * @throws SAXException 
      */
-    private void getSignkeyOfSandbox() {
+    private void getSignkeyOfSandbox() throws SAXException {
         _log.info("准备获取沙箱测试的签名密钥");
         // 获取沙箱测试的密钥
         Map<String, Object> requestParams = new LinkedHashMap<>();
@@ -146,9 +153,10 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 
     /**
      * 微信支付-预支付
+     * @throws SAXException 
      */
     @Override
-    public WxpayPrepayRo prepay(WxpayPrepayTo to) {
+    public WxpayPrepayRo prepay(WxpayPrepayTo to) throws SAXException {
         _log.info("微信支付-预支付：{}", to);
         WxpayPrepayRo ro = new WxpayPrepayRo();
 
@@ -251,9 +259,10 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
      * 
      * @param orderId
      *            销售订单ID
+     * @throws SAXException 
      */
     @Override
-    public WxpayOrderQueryRo queryOrder(String orderId) {
+    public WxpayOrderQueryRo queryOrder(String orderId) throws SAXException {
         _log.info("微信支付-查询订单：订单号-{}", orderId);
         WxpayOrderQueryRo ro = new WxpayOrderQueryRo();
 

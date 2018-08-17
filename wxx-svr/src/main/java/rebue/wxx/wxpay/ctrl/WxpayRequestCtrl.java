@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.xml.sax.SAXException;
 
 import rebue.wxx.wxpay.ro.WxpayOrderQueryRo;
 import rebue.wxx.wxpay.ro.WxpayPrepayRo;
@@ -29,18 +30,20 @@ public class WxpayRequestCtrl {
 
     /**
      * 微信支付-预支付
+     * @throws SAXException 
      */
     @PostMapping("/wxx/wxpay/request/prepay")
-    public WxpayPrepayRo prepay(@RequestBody WxpayPrepayTo to) {
+    public WxpayPrepayRo prepay(@RequestBody WxpayPrepayTo to) throws SAXException {
         _log.info("wxpay prepay: {}", to);
         return wxpaySvc.prepay(to);
     }
 
     /**
      * 微信支付-查询订单
+     * @throws SAXException 
      */
     @GetMapping("/wxx/wxpay/request/queryorder")
-    public WxpayOrderQueryRo queryOrder(@RequestParam("orderId") String orderId) {
+    public WxpayOrderQueryRo queryOrder(@RequestParam("orderId") String orderId) throws SAXException {
         _log.info("wxpay queryOrder: {}", orderId);
         return wxpaySvc.queryOrder(orderId);
     }

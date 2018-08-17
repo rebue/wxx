@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import org.xml.sax.SAXException;
 
 import rebue.wheel.XmlUtils;
 import rebue.wheel.turing.SignUtils;
@@ -68,9 +69,10 @@ public class WxxResponseRestCtrl {
 
     /**
      * 接收微信服务器发来的消息
+     * @throws SAXException 
      */
     @PostMapping(value = "/wxx/response", produces = MediaType.TEXT_PLAIN_VALUE)
-    String receiveMsg(HttpServletRequest req) throws IOException, DocumentException {
+    String receiveMsg(HttpServletRequest req) throws IOException, DocumentException, SAXException {
         _log.info("received msg");
         return wxxResponseSvc.handleMsg(XmlUtils.xmlToMap(req.getInputStream()));
     }
