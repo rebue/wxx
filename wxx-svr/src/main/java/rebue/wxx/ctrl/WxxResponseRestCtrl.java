@@ -93,8 +93,8 @@ public class WxxResponseRestCtrl {
      *            获取到授权的code
      */
     @GetMapping("/wxx/response/authorizecode")
-    ModelAndView authorizeCode(@RequestParam("code") String code) throws IOException {
-        _log.info("接收到微信授权回调: {}", code);
+    ModelAndView authorizeCode(@RequestParam("code") String code, @RequestParam(value = "state", required = false) String state) throws IOException {
+        _log.info("接收到微信授权回调: {}，{}", code, state);
         Map<String, Object> userInfo = wxxResponseSvc.authorizeCode(code);
         ModelAndView modelAndView;
         if (userInfo == null) {
@@ -103,6 +103,7 @@ public class WxxResponseRestCtrl {
         } else {
             _log.info("给用户信息map添加签名(重定向登录页面需要签名)");
             SignUtils.sign1(userInfo, wxLoginCallbackSignKey);
+            userInfo.put("state", state);
             _log.info("跳转用户登录页面");
             modelAndView = new ModelAndView("ForwardUserLogin");
             modelAndView.addObject("methodType", wxLoginCallbackMethodType);
