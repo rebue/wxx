@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 
 import rebue.sbs.redis.RedisClient;
 import rebue.sbs.redis.RedisSetException;
+import rebue.wheel.HttpClientUtils;
 import rebue.wheel.MapUtils;
 import rebue.wheel.MoneyUtils;
 import rebue.wheel.OkhttpUtils;
@@ -120,17 +121,18 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 
         _log.info("微信支付服务初始化");
         if (wxpayTest)
-			try {
-				getSignkeyOfSandbox();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            try {
+                getSignkeyOfSandbox();
+            } catch (SAXException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
     }
 
     /**
      * 获取沙箱测试的签名密钥
-     * @throws SAXException 
+     * 
+     * @throws SAXException
      */
     private void getSignkeyOfSandbox() throws SAXException {
         _log.info("准备获取沙箱测试的签名密钥");
@@ -142,7 +144,8 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
         _log.info("发送获取沙箱测试的签名密钥的请求");
         Map<String, Object> respMap;
         try {
-            respMap = OkhttpUtils.postByXmlParams(GET_SIGN_KEY_URL_SANDBOX, requestParams);
+//            respMap = OkhttpUtils.postByXmlParams(GET_SIGN_KEY_URL_SANDBOX, requestParams);
+            respMap = HttpClientUtils.postByXmlParams(GET_SIGN_KEY_URL_SANDBOX, requestParams);
         } catch (IOException | DocumentException e) {
             throw new RuntimeException("获取沙箱测试的签名密钥失败", e);
         }
@@ -153,7 +156,8 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 
     /**
      * 微信支付-预支付
-     * @throws SAXException 
+     * 
+     * @throws SAXException
      */
     @Override
     public WxpayPrepayRo prepay(WxpayPrepayTo to) throws SAXException {
@@ -259,7 +263,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
      * 
      * @param orderId
      *            销售订单ID
-     * @throws SAXException 
+     * @throws SAXException
      */
     @Override
     public WxpayOrderQueryRo queryOrder(String orderId) throws SAXException {
