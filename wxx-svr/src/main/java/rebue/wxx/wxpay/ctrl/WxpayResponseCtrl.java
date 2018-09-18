@@ -34,12 +34,13 @@ public class WxpayResponseCtrl {
      * @return 返回微信的内容，为null则表示处理时发现有问题
      * @throws DocumentException
      * @throws IOException
-     * @throws SAXException 
+     * @throws SAXException
      */
     @PostMapping("/wxx/wxpay/response/notify")
     String handleNotify(HttpServletRequest req) throws IOException, DocumentException, SAXException {
-        Map<String, Object> reqParams = XmlUtils.xmlToMap(req.getInputStream());
-        _log.info("接收到微信支付-支付完成的通知：{}", reqParams);
+        String xml = XmlUtils.getXmlFromRequest(req);
+        _log.info("接收到微信支付-支付完成的通知：{}", xml);
+        Map<String, Object> reqParams = XmlUtils.xmlToMap(xml);
         return wxpaySvc.handleNotify(reqParams);
     }
 

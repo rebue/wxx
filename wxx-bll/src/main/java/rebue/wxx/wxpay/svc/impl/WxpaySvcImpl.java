@@ -84,6 +84,11 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
     @Value("${wxx.wxpay.test:false}")
     private Boolean             wxpayTest;
     /**
+     * 微信支付是否修补数据(默认为false，如果为true，则不校验orderId含金额是否存在缓存)
+     */
+    @Value("${wxx.wxpay.repair:false}")
+    private Boolean             wxpayRepair;
+    /**
      * 微信支付-签名密钥
      * 签名用的key，在商户平台设置（微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置
      */
@@ -367,25 +372,28 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
                 roMap.put("return_msg", "传递参数验证失败");
                 return XmlUtils.mapToXml(roMap);
             }
+
             _log.info("检查是否有此订单号及金额是否正确");
-            // 销售订单ID
-            String orderId = String.valueOf(reqParams.get("out_trade_no"));
             // 金额
             Double payAmount = MoneyUtils.fen2yuan(String.valueOf(reqParams.get("total_fee")));
-            // 获取缓存中销售订单的金额
-            String sPayAmount = redisClient.get(WxpayRedisCo.REDIS_KEY_WXPAY_ORDERID_PREFIX + orderId);
-            if (sPayAmount == null) {
-                _log.error("在缓存中找不到此销售订单: {}", orderId);
-                _log.info("返回微信找不到此销售订单");
-                roMap.put("return_code", "FAIL");
-                roMap.put("return_msg", "找不到此销售订单");
-                return XmlUtils.mapToXml(roMap);
-            } else if (Double.parseDouble(sPayAmount) != payAmount) {
-                _log.error("此支付订单的金额与缓存中的不匹配: 预期{},实际{}", sPayAmount, payAmount);
-                _log.info("返回微信此支付订单的金额与预支付请求的不一致");
-                roMap.put("return_code", "FAIL");
-                roMap.put("return_msg", "此支付订单的金额与预支付请求的不一致");
-                return XmlUtils.mapToXml(roMap);
+            // 销售订单ID
+            String orderId = String.valueOf(reqParams.get("out_trade_no"));
+            if (!wxpayRepair) {
+                // 获取缓存中销售订单的金额
+                String sPayAmount = redisClient.get(WxpayRedisCo.REDIS_KEY_WXPAY_ORDERID_PREFIX + orderId);
+                if (sPayAmount == null) {
+                    _log.error("在缓存中找不到此销售订单: {}", orderId);
+                    _log.info("返回微信找不到此销售订单");
+                    roMap.put("return_code", "FAIL");
+                    roMap.put("return_msg", "找不到此销售订单");
+                    return XmlUtils.mapToXml(roMap);
+                } else if (Double.parseDouble(sPayAmount) != payAmount) {
+                    _log.error("此支付订单的金额与缓存中的不匹配: 预期{},实际{}", sPayAmount, payAmount);
+                    _log.info("返回微信此支付订单的金额与预支付请求的不一致");
+                    roMap.put("return_code", "FAIL");
+                    roMap.put("return_msg", "此支付订单的金额与预支付请求的不一致");
+                    return XmlUtils.mapToXml(roMap);
+                }
             }
 
             _log.info("将微信支付完成的消息加入消息队列");

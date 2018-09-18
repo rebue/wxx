@@ -69,12 +69,14 @@ public class WxxResponseRestCtrl {
 
     /**
      * 接收微信服务器发来的消息
-     * @throws SAXException 
+     * 
+     * @throws SAXException
      */
     @PostMapping(value = "/wxx/response", produces = MediaType.TEXT_PLAIN_VALUE)
     String receiveMsg(HttpServletRequest req) throws IOException, DocumentException, SAXException {
-        _log.info("received msg");
-        return wxxResponseSvc.handleMsg(XmlUtils.xmlToMap(req.getInputStream()));
+        String xml = XmlUtils.getXmlFromRequest(req);
+        _log.info("接收微信服务器发来的消息: {}", xml);
+        return wxxResponseSvc.handleMsg(XmlUtils.xmlToMap(xml));
     }
 
     /**
