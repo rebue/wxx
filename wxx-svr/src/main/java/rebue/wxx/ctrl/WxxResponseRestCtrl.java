@@ -104,8 +104,8 @@ public class WxxResponseRestCtrl {
             modelAndView = new ModelAndView("GetWxUserInfoFail");
         } else {
             _log.info("给用户信息map添加签名(重定向登录页面需要签名)");
-            SignUtils.sign1(userInfo, wxLoginCallbackSignKey);
             userInfo.put("state", state);
+            SignUtils.sign1(userInfo, wxLoginCallbackSignKey);
             _log.info("跳转用户登录页面");
             modelAndView = new ModelAndView("ForwardUserLogin");
             modelAndView.addObject("methodType", wxLoginCallbackMethodType);
