@@ -24,13 +24,13 @@ public class WxxRequestTest {
     }
 
     /**
-     * 创建菜单
+     * 长链接转短链接
      */
     @Test
     public void test02() throws IOException, RedisSetException, InterruptedException, DocumentException {
         String url = _hostUrl + "/wxx/request/shorturl";
-        String jsonParams = "{\"longUrl\": \"http://www.nnzbz.cc\"}";
-        Assert.assertEquals("ok", OkhttpUtils.postByJsonParams(url, jsonParams));
+        String jsonParams = "{\"longUrl\": \"https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx75f0e29692eab341&redirect_uri=https%3A%2F%2Fwww.duamai.com%2Fwxx-svr%2Fwxx%2Fresponse%2Fauthorizecode&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect\"},{\"type\":\"view\",\"name\":\"快递查询\",\"url\":\"https://www.duamai.com/damai-wx-web/kdi/KdiSearch.html\"\"}";
+        Assert.assertNotEquals("", OkhttpUtils.postByJsonParams(url, jsonParams));
     }
 
 }
