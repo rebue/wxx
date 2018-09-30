@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import rebue.wxx.ro.WxRequestWebAccessTokenRo;
+import rebue.wxx.to.LongUrlTo;
 
 public interface WxxRequestSvc {
 
@@ -37,5 +38,10 @@ public interface WxxRequestSvc {
      * 更新微信公众号菜单
      */
     String updateMenu();
+
+    /**
+     * 获取短链接
+     */
+    String getShortUrl(LongUrlTo to);
 
 }

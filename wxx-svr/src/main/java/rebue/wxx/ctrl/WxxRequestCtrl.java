@@ -9,10 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import rebue.wxx.svc.WxxRequestSvc;
+import rebue.wxx.to.LongUrlTo;
 
 /**
  * 向微信服务器发送请求的控制器
@@ -32,6 +35,15 @@ public class WxxRequestCtrl {
     public Map<String, Object> getAccessToken() {
         _log.info("wxx getAccessToken");
         return wxxRequestSvc.getAccessToken();
+    }
+
+    /**
+     * 获取短链接
+     */
+    @PostMapping("/wxx/request/shorturl")
+    public String getShortUrl(@RequestBody LongUrlTo to) {
+        _log.info("wxx getShortUrl: {}", to);
+        return wxxRequestSvc.getShortUrl(to);
     }
 
     /**
