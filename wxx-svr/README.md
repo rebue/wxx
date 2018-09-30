@@ -5,8 +5,8 @@
 ## 1. 启动内网穿透服务器调试微信
 
 ```sh
-natapp -authtoken=996a791d8e8dd73a
-sunny clientid 07b02b237ed53060
+natapp -authtoken=xxxxxxxxxxxxx
+sunny clientid xxxxxxxxxxxxx
 ```
 
 ## 2. 部署
