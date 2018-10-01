@@ -30,6 +30,16 @@ public interface WxxRequestSvc {
     Map<String, Object> getUserInfo(String webAccessToken, String openId) throws IOException;
 
     /**
+     * 是否关注微信公众号
+     */
+    Boolean isSubscribe(String openId);
+
+    /**
+     * 获取短链接
+     */
+    String getShortUrl(LongUrlTo to);
+
+    /**
      * 获取微信服务器IP地址
      */
     List<String> getWxServerIps();
@@ -38,10 +48,5 @@ public interface WxxRequestSvc {
      * 更新微信公众号菜单
      */
     String updateMenu();
-
-    /**
-     * 获取短链接
-     */
-    String getShortUrl(LongUrlTo to);
 
 }

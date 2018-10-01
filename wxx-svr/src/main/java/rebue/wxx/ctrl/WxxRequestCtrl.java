@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import rebue.wxx.svc.WxxRequestSvc;
@@ -35,6 +36,15 @@ public class WxxRequestCtrl {
     public Map<String, Object> getAccessToken() {
         _log.info("wxx getAccessToken");
         return wxxRequestSvc.getAccessToken();
+    }
+
+    /**
+     * 是否关注微信公众号
+     */
+    @GetMapping("/wxx/request/issubscribe")
+    public Boolean isSubscribe(@RequestParam("openId") String openId) {
+        _log.info("wxx isSubscribe: {}", openId);
+        return wxxRequestSvc.isSubscribe(openId);
     }
 
     /**

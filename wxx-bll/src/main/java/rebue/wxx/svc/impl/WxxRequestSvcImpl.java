@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import rebue.wheel.OkhttpUtils;
 import rebue.wxx.access.token.svr.feign.WxxAccessTokenSvc;
 import rebue.wxx.ro.WxRequestShortUrlRo;
+import rebue.wxx.ro.WxRequestUserInfoRo;
 import rebue.wxx.ro.WxRequestWebAccessTokenRo;
 import rebue.wxx.svc.WxxRequestSvc;
 import rebue.wxx.to.LongUrlTo;
@@ -42,6 +43,10 @@ public class WxxRequestSvcImpl implements WxxRequestSvc {
      * 获取微信用户信息的请求的url
      */
     private final static String GET_USER_INFO_URL            = "https://api.weixin.qq.com/sns/userinfo?access_token=%s&openid=%s&lang=zh_CN";
+    /**
+     * 获取用户信息
+     */
+    private final static String GET_USERINFO_URL             = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=%s&openid=%s&lang=zh_CN";
     /**
      * 获取长链接的请求的url
      */
@@ -137,6 +142,37 @@ public class WxxRequestSvcImpl implements WxxRequestSvc {
     }
 
     /**
+     * 是否关注微信公众号
+     */
+    @Override
+    public Boolean isSubscribe(String openId) {
+        _log.info("准备向微信服务器发送请求以获取是否关注微信公众号: openId={}", openId);
+        // 1、先获取AccessToken
+        String accessToken = accessTokenSvc.getAccessToken();
+        if (StringUtils.isBlank(accessToken)) {
+            String msg = "尚未获取到AccessToken";
+            _log.error(msg);
+            return null;
+        }
+        // 2. 获取是否关注微信公众号
+        String url = String.format(GET_USERINFO_URL, accessToken, openId);
+        try {
+            WxRequestUserInfoRo ro = objectMapper.readValue(OkhttpUtils.get(url), WxRequestUserInfoRo.class);
+            Integer errcode = ro.getErrcode();
+            if (errcode == null || errcode.equals(0)) {
+                Byte subscribe = ro.getSubscribe();
+                if (subscribe == null)
+                    return null;
+                return subscribe != 0;
+            }
+            return null;
+        } catch (IOException e) {
+            _log.error("请求异常", e);
+            return null;
+        }
+    }
+
+    /**
      * 获取短链接
      */
     @Override
@@ -154,7 +190,8 @@ public class WxxRequestSvcImpl implements WxxRequestSvc {
         try {
             String requestParams = "{\"action\":\"long2short\",\"long_url\":\"" + to.getLongUrl() + "\"}";
             WxRequestShortUrlRo ro = objectMapper.readValue(OkhttpUtils.postByJsonParams(url, requestParams), WxRequestShortUrlRo.class);
-            if (ro.getErrcode().equals(0)) {
+            Integer errcode = ro.getErrcode();
+            if (errcode == null || errcode.equals(0)) {
                 return ro.getShort_url();
             }
             return null;
