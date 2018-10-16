@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.dom4j.DocumentException;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.xml.sax.SAXException;
 
+import rebue.wheel.MapUtils;
 import rebue.wheel.XmlUtils;
 import rebue.wheel.turing.SignUtils;
 import rebue.wxx.svc.WxxRequestSvc;
@@ -95,7 +97,7 @@ public class WxxResponseRestCtrl {
      *            获取到授权的code
      */
     @GetMapping("/wxx/response/authorizecode")
-    ModelAndView authorizeCode(@RequestParam("code") String code, @RequestParam(value = "state", required = false) String state) throws IOException {
+    ModelAndView authorizeCode(@RequestParam("code") String code, @RequestParam(value = "state", required = false) String state, HttpServletResponse resp) throws IOException {
         _log.info("接收到微信授权回调: {}，{}", code, state);
         Map<String, Object> userInfo = wxxResponseSvc.authorizeCode(code);
         ModelAndView modelAndView;
@@ -104,9 +106,9 @@ public class WxxResponseRestCtrl {
             modelAndView = new ModelAndView("GetWxUserInfoFail");
         } else {
             _log.info("给用户信息map添加签名(重定向登录页面需要签名)");
-            userInfo.put("state", state);
             SignUtils.sign1(userInfo, wxLoginCallbackSignKey);
-            _log.info("跳转用户登录页面");
+            userInfo.put("state", state);
+            _log.info("跳转用户登录页面: {}:{}", wxLoginCallbackMethodType, wxLoginCallbackUrl);
             modelAndView = new ModelAndView("ForwardUserLogin");
             modelAndView.addObject("methodType", wxLoginCallbackMethodType);
             modelAndView.addObject("forwardUrl", wxLoginCallbackUrl);
