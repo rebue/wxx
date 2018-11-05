@@ -32,15 +32,58 @@ public class WxxResponseViewCtrl {
     private String              wxLoginCallbackSignKey;
 
     /**
+     * 微信登录回调的地址
+     */
+    @Value("${wxx.loginCallback.url}")
+    private String              wxLoginCallbackUrl;
+    /**
+     * 微信登录回调的地址方法类型(GET/POST/PUT/DELETE....)
+     */
+    @Value("${wxx.loginCallback.methodType}")
+    private String              wxLoginCallbackMethodType;
+
+    /**
      * 微信用户登录测试页面
      */
     @GetMapping("/wxx/response/view/login")
-    public String login(@RequestParam Map<String, Object> requestParams) {
+    public String login(@RequestParam final Map<String, Object> requestParams) {
         MapUtils.decodeUrl(requestParams);
         _log.info("wxx login callback: {}", requestParams);
-        if (!SignUtils.verify1(requestParams, wxLoginCallbackSignKey))
+        if (!SignUtils.verify1(requestParams, wxLoginCallbackSignKey)) {
             return null;
+        }
         return "Reg";// templates/Reg.ftl
     }
+
+//    /**
+//     * 微信授权回调接口，重定向登录页面
+//     * 
+//     * @param code
+//     *            获取到授权的code
+//     */
+//    @GetMapping("/wxx/response/authorizecode")
+//    ModelAndView authorizeCode(@RequestParam("code") final String code, @RequestParam(value = "state", required = false) final String state, final HttpServletResponse resp)
+//            throws IOException {
+//        _log.info("接收到微信授权回调: {}，{}", code, state);
+//        final Map<String, Object> userInfo = wxxResponseSvc.authorizeCode(code);
+//        ModelAndView modelAndView;
+////        String modelAndView = "GetWxUserInfoFail";
+//        if (userInfo == null) {
+//            _log.info("返回获取微信用户信息失败页面");
+//            modelAndView = new ModelAndView("GetWxUserInfoFail");
+//        } else {
+//            _log.info("给用户信息map添加签名(重定向登录页面需要签名)");
+//            SignUtils.sign1(userInfo, wxLoginCallbackSignKey);
+//            userInfo.put("state", state);
+//            _log.info("跳转用户登录页面: {}:{}", wxLoginCallbackMethodType, wxLoginCallbackUrl);
+////            modelAndView = new ModelAndView("GetWxUserInfoFail");
+////            modelAndView = new ModelAndView("ForwardUserLogin");
+////            modelAndView.addObject("methodType", wxLoginCallbackMethodType);
+////            modelAndView.addObject("forwardUrl", wxLoginCallbackUrl);
+////            modelAndView.addObject("userInfo", userInfo);
+//            modelAndView = new ModelAndView(new RedirectView(wxLoginCallbackUrl));
+//        }
+//        return modelAndView;
+//    }
 
 }

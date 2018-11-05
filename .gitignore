@@ -7,3 +7,4 @@ logs
 app.properties
 .springBeans
 .DS_Store
+rebel.xml

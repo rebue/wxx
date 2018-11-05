@@ -18,7 +18,7 @@ public interface WxxResponseSvc {
     String handleMsg(Map<String, Object> requestMap);
 
     /**
-     * 网页授权第一步：用户同意授权，获取到code
+     * 网页授权第一步：用户同意授权，微信服务器回调，获取到code
      * 网页授权第二步：通过code换取网页授权的web_access_token
      * 网页授权第三步：刷新web_access_token缓存时限
      * 网页授权第四步：获取用户信息

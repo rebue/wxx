@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.xml.sax.SAXException;
 
-import rebue.wheel.MapUtils;
 import rebue.wheel.XmlUtils;
 import rebue.wheel.turing.SignUtils;
 import rebue.wxx.svc.WxxRequestSvc;
@@ -64,7 +63,7 @@ public class WxxResponseRestCtrl {
      * 所以GET和POST要区分对待，本方法是处理GET的，下一个方法是处理POST的
      */
     @GetMapping(value = "/wxx/response", produces = MediaType.TEXT_PLAIN_VALUE)
-    String authorize(WxAuthorizeVo vo) {
+    String authorize(final WxAuthorizeVo vo) {
         _log.info("received authorize params: {}", vo);
         return wxxResponseSvc.authorize(vo);
     }
@@ -75,8 +74,8 @@ public class WxxResponseRestCtrl {
      * @throws SAXException
      */
     @PostMapping(value = "/wxx/response", produces = MediaType.TEXT_PLAIN_VALUE)
-    String receiveMsg(HttpServletRequest req) throws IOException, DocumentException, SAXException {
-        String xml = XmlUtils.getXmlFromRequest(req);
+    String receiveMsg(final HttpServletRequest req) throws IOException, DocumentException, SAXException {
+        final String xml = XmlUtils.getXmlFromRequest(req);
         _log.info("接收微信服务器发来的消息: {}", xml);
         return wxxResponseSvc.handleMsg(XmlUtils.xmlToMap(xml));
     }
@@ -85,7 +84,7 @@ public class WxxResponseRestCtrl {
      * 网页授权需要验证此链接
      */
     @GetMapping(value = "/wxx/MP_verify_{id}.txt", produces = MediaType.TEXT_PLAIN_VALUE)
-    String mpVerify(@PathVariable("id") String id) {
+    String mpVerify(@PathVariable("id") final String id) {
         _log.info("mp_verify_{}", id);
         return id;
     }
@@ -97,13 +96,16 @@ public class WxxResponseRestCtrl {
      *            获取到授权的code
      */
     @GetMapping("/wxx/response/authorizecode")
-    ModelAndView authorizeCode(@RequestParam("code") String code, @RequestParam(value = "state", required = false) String state, HttpServletResponse resp) throws IOException {
+    ModelAndView authorizeCode(@RequestParam("code") final String code, @RequestParam(value = "state", required = false) final String state, final HttpServletResponse resp)
+            throws IOException {
         _log.info("接收到微信授权回调: {}，{}", code, state);
-        Map<String, Object> userInfo = wxxResponseSvc.authorizeCode(code);
+        final Map<String, Object> userInfo = wxxResponseSvc.authorizeCode(code);
         ModelAndView modelAndView;
+//        String modelAndView;
         if (userInfo == null) {
             _log.info("返回获取微信用户信息失败页面");
             modelAndView = new ModelAndView("GetWxUserInfoFail");
+//            modelAndView = "获取微信用户信息失败";
         } else {
             _log.info("给用户信息map添加签名(重定向登录页面需要签名)");
             SignUtils.sign1(userInfo, wxLoginCallbackSignKey);
@@ -112,9 +114,25 @@ public class WxxResponseRestCtrl {
             modelAndView = new ModelAndView("ForwardUserLogin");
             modelAndView.addObject("methodType", wxLoginCallbackMethodType);
             modelAndView.addObject("forwardUrl", wxLoginCallbackUrl);
+//            modelAndView.addObject("forwardUrl", "https://www.baidu.com");
             modelAndView.addObject("userInfo", userInfo);
+
+//            String inputs = "";
+//            for (final Entry<String, Object> item : userInfo.entrySet()) {
+//                inputs += "<input name=\"" + item.getKey() + "\" value=\"" + item.getValue() + "\" type=\"hidden\" />";
+//
+//            }
+//            modelAndView = "<!DOCTYPE html>\n" + "<html>\n" + "<head>\n" + "<title>微信用户登录</title>\n" + "<meta charset=\"UTF-8\">\n"
+//                    + "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,user-scalable=0\">\n"
+//                    + "<link rel=\"stylesheet\" href=\"https://res.wx.qq.com/open/libs/weui/1.1.2/weui.css\" />\n" + "</head>\n" + "\n" + "<body ontouchstart>\n"
+//                    + "    <div id=\"container\">获取微信用户信息成功，正在跳转......</div>\n" + "    <form name=\"form1\" method=\"" //
+//                    + wxLoginCallbackMethodType + "\" action=\"" + wxLoginCallbackUrl + "\">\n" //
+//                    + inputs + "\n" + "    </form>\n" + "</body>\n" + "<script type=\"text/javascript\">\n" + "    document.form1.submit();\n" + "</script>\n" + "</html>";
+
+//            modelAndView = "获取微信用户信息成功";
         }
         return modelAndView;
+//        return new ModelAndView(new RedirectView("https://www.baidu.com"));
     }
 
 }

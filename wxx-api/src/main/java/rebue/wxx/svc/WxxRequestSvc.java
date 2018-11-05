@@ -15,6 +15,14 @@ public interface WxxRequestSvc {
     Map<String, Object> getAccessToken();
 
     /**
+     * 网页授权第二步之前：先通过code查找是否已有成功获取用户信息的缓存
+     * 
+     * @param code
+     *            网页授权第一步获取的code
+     */
+    Map<String, Object> getUserInfoCache(String code);
+
+    /**
      * 网页授权第二步：通过code换取网页授权的web_access_token
      */
     WxRequestWebAccessTokenRo getWebAccessToken(String code) throws IOException;
@@ -27,7 +35,7 @@ public interface WxxRequestSvc {
     /**
      * 网页授权第四步：获取用户信息
      */
-    Map<String, Object> getUserInfo(String webAccessToken, String openId) throws IOException;
+    Map<String, Object> getUserInfo(String webAccessToken, String openId, String code) throws IOException;
 
     /**
      * 是否关注微信公众号
