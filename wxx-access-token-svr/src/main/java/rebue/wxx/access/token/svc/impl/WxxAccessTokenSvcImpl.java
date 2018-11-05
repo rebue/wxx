@@ -53,7 +53,7 @@ public class WxxAccessTokenSvcImpl implements WxxAccessTokenSvc {
         requestAccessToken();
     }
 
-    private synchronized void requestAccessToken() {
+    private void requestAccessToken() {
         final Date now = new Date();
         // 如果当前时间大于下次请求时间，发出请求
         if (now.getTime() > _nextRequestTime.getTime()) {
