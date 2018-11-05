@@ -6,9 +6,6 @@ spring:
     name: wxx-access-token-svr
   profiles:
     active: dev
-  metrics:
-    servo:
-      enabled: false
     
 eureka:
   instance:

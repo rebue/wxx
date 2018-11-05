@@ -1,7 +1,7 @@
 debug: true
 
 server:
-  port: 9000
+  port: 0
 
 eureka:
   client:

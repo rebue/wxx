@@ -1,4 +1,4 @@
-package rebue.wxx.access.token.svr.ctrl;
+package rebue.wxx.access.token.ctrl;
 
 import javax.annotation.Resource;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import rebue.wxx.access.token.svr.svc.WxxAccessTokenSvc;
+import rebue.wxx.access.token.svc.WxxAccessTokenSvc;
 
 @RestController
 public class WxxAccessTokenCtrl {
@@ -25,7 +25,9 @@ public class WxxAccessTokenCtrl {
     }
 
     /**
-     * @return 获取access token
+     * 获取access token
+     * 
+     * @return 如果还未请求获取到token，则返回null
      */
     @GetMapping(value = "/wxx/access/token", produces = MediaType.TEXT_PLAIN_VALUE)
 //    @GetMapping("/wxx/access/token")

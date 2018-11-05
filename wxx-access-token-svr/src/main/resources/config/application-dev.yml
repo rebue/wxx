@@ -1,0 +1,4 @@
+wxx:
+  accesstoken:
+    # 请求任务执行的间隔（毫秒）
+    requestFixedDelay: 3000
