@@ -9,7 +9,12 @@ public interface WxxAccessTokenSvc {
     String getAccessToken();
 
     /**
-     * 刷新access token
+     * 强制刷新access token(不用等到下次请求时间)
+     */
+    void forceRefreshAccessToken();
+
+    /**
+     * 刷新access token(如果当前时间大于下次请求时间才会发出请求)
      */
     void refreshAccessToken();
 

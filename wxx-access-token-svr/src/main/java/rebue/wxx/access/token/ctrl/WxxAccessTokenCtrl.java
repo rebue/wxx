@@ -37,12 +37,12 @@ public class WxxAccessTokenCtrl {
     }
 
     /**
-     * @return 刷新access token
+     * 强制刷新access token(马上发出请求，不用等到下次请求时间)
      */
     @PostMapping("/wxx/access/token")
-    public void refreshAccessToken() {
+    public void forceRefreshAccessToken() {
         _log.info("接收到刷新Access Token的请求");
-        accessTokenSvc.refreshAccessToken();
+        accessTokenSvc.forceRefreshAccessToken();
     }
 
 }

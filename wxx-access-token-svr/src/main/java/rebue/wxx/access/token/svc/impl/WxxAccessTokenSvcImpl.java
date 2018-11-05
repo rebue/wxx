@@ -47,39 +47,51 @@ public class WxxAccessTokenSvcImpl implements WxxAccessTokenSvc {
     }
 
     /**
-     * 刷新access token
+     * 强制刷新access token(马上发出请求，不用等到下次请求时间)
      */
     @Override
-    public void refreshAccessToken() {
+    public void forceRefreshAccessToken() {
         requestAccessToken();
     }
 
-    private void requestAccessToken() {
+    /**
+     * 刷新access token(如果当前时间大于下次请求时间才会发出请求)
+     */
+    @Override
+    public void refreshAccessToken() {
         final Date now = new Date();
         // 如果当前时间大于下次请求时间，发出请求
         if (now.getTime() > _nextRequestTime.getTime()) {
-            try {
-                _log.info("正式发出刷新Access Token的请求(需要在公众号中设置IP白名单，否则微信服务器会返回40164错误)");
-                final Map<String, Object> map = _wxxRequestSvc.getAccessToken();
-                if (map == null) {
-                    throw new IOException();
-                }
-                final String accessToken = (String) map.get("access_token");
-                final Integer expiresIn = (Integer) map.get("expires_in");
-                if (!StringUtils.isBlank(accessToken) && expiresIn != null) {
-                    _log.info("获取到access token: {}", accessToken);
-                    _accessToken = accessToken;
-                    // AccessToken有时效性，延迟一段时间后（失效前5分钟）再次发出请求
-                    _nextRequestTime = new Date(now.getTime() + (expiresIn - 5 * 60) * 1000);
-                } else {
-                    _log.error("接收到不正常的返回结果");
-                }
-            } catch (final IOException e1) {
-                _log.error("请求access token出现异常", e1);
-            }
+            requestAccessToken();
         } else {
             final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             _log.debug("还未到计划下次发出请求的时间: {}", sdf.format(_nextRequestTime));
+        }
+
+    }
+
+    /**
+     * 请求access token
+     */
+    private void requestAccessToken() {
+        try {
+            _log.info("正式发出刷新Access Token的请求(需要在公众号中设置IP白名单，否则微信服务器会返回40164错误)");
+            final Map<String, Object> map = _wxxRequestSvc.getAccessToken();
+            if (map == null) {
+                throw new IOException();
+            }
+            final String accessToken = (String) map.get("access_token");
+            final Integer expiresIn = (Integer) map.get("expires_in");
+            if (!StringUtils.isBlank(accessToken) && expiresIn != null) {
+                _log.info("获取到access token: {}", accessToken);
+                _accessToken = accessToken;
+                // AccessToken有时效性，延迟一段时间后（失效前5分钟）再次发出请求
+                _nextRequestTime = new Date(System.currentTimeMillis() + (expiresIn - 5 * 60) * 1000L);
+            } else {
+                _log.error("接收到不正常的返回结果");
+            }
+        } catch (final IOException e1) {
+            _log.error("请求access token出现异常", e1);
         }
     }
 
