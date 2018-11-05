@@ -1,6 +1,7 @@
 package rebue.wxx.access.token.svc.impl;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
@@ -76,6 +77,9 @@ public class WxxAccessTokenSvcImpl implements WxxAccessTokenSvc {
             } catch (final IOException e1) {
                 _log.error("请求access token出现异常", e1);
             }
+        } else {
+            final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            _log.debug("还未到计划下次发出请求的时间: {}", sdf.format(_nextRequestTime));
         }
     }
 
