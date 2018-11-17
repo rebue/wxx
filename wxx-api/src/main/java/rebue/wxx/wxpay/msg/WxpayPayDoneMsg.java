@@ -24,7 +24,7 @@ public class WxpayPayDoneMsg {
      */
     private BigDecimal payAmount;
     /**
-     * 支付订单号
+     * 微信支付订单号
      */
     private String     payOrderId;
     /**
@@ -40,7 +40,7 @@ public class WxpayPayDoneMsg {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(final Long userId) {
         this.userId = userId;
     }
 
@@ -48,7 +48,7 @@ public class WxpayPayDoneMsg {
         return payAccountId;
     }
 
-    public void setPayAccountId(String payAccountId) {
+    public void setPayAccountId(final String payAccountId) {
         this.payAccountId = payAccountId;
     }
 
@@ -56,7 +56,7 @@ public class WxpayPayDoneMsg {
         return payAmount;
     }
 
-    public void setPayAmount(BigDecimal payAmount) {
+    public void setPayAmount(final BigDecimal payAmount) {
         this.payAmount = payAmount;
     }
 
@@ -64,7 +64,7 @@ public class WxpayPayDoneMsg {
         return payOrderId;
     }
 
-    public void setPayOrderId(String payOrderId) {
+    public void setPayOrderId(final String payOrderId) {
         this.payOrderId = payOrderId;
     }
 
@@ -72,7 +72,7 @@ public class WxpayPayDoneMsg {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(final String orderId) {
         this.orderId = orderId;
     }
 
@@ -80,7 +80,7 @@ public class WxpayPayDoneMsg {
         return payTime;
     }
 
-    public void setPayTime(Date payTime) {
+    public void setPayTime(final Date payTime) {
         this.payTime = payTime;
     }
 
