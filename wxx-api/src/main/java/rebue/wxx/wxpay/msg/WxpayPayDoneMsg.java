@@ -6,10 +6,13 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import lombok.Data;
+
 /**
  * 微信支付的支付完成通知
  */
 @JsonInclude(Include.NON_NULL)
+@Data
 public class WxpayPayDoneMsg {
     /**
      * 用户ID
@@ -24,9 +27,9 @@ public class WxpayPayDoneMsg {
      */
     private BigDecimal payAmount;
     /**
-     * 微信支付订单号
+     * 微信支付交易ID
      */
-    private String     payOrderId;
+    private String     tradeId;
     /**
      * 订单号
      */
@@ -35,59 +38,5 @@ public class WxpayPayDoneMsg {
      * 支付完成时间
      */
     private Date       payTime;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(final Long userId) {
-        this.userId = userId;
-    }
-
-    public String getPayAccountId() {
-        return payAccountId;
-    }
-
-    public void setPayAccountId(final String payAccountId) {
-        this.payAccountId = payAccountId;
-    }
-
-    public BigDecimal getPayAmount() {
-        return payAmount;
-    }
-
-    public void setPayAmount(final BigDecimal payAmount) {
-        this.payAmount = payAmount;
-    }
-
-    public String getPayOrderId() {
-        return payOrderId;
-    }
-
-    public void setPayOrderId(final String payOrderId) {
-        this.payOrderId = payOrderId;
-    }
-
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(final String orderId) {
-        this.orderId = orderId;
-    }
-
-    public Date getPayTime() {
-        return payTime;
-    }
-
-    public void setPayTime(final Date payTime) {
-        this.payTime = payTime;
-    }
-
-    @Override
-    public String toString() {
-        return "WxpayNotifyRo [userId=" + userId + ", payAccountId=" + payAccountId + ", payAmount=" + payAmount + ", payOrderId=" + payOrderId + ", orderId=" + orderId
-                + ", payTime=" + payTime + "]";
-    }
 
 }

@@ -118,20 +118,22 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 //    }
 
     @Override
-    public void onApplicationEvent(ApplicationStartedEvent event) {
+    public void onApplicationEvent(final ApplicationStartedEvent event) {
         // 防止多次启动
-        if (bStartedFlag)
+        if (bStartedFlag) {
             return;
+        }
         bStartedFlag = true;
 
         _log.info("微信支付服务初始化");
-        if (wxpayTest)
+        if (wxpayTest) {
             try {
                 getSignkeyOfSandbox();
-            } catch (SAXException e) {
+            } catch (final SAXException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
+        }
     }
 
     /**
@@ -142,7 +144,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
     private void getSignkeyOfSandbox() throws SAXException {
         _log.info("准备获取沙箱测试的签名密钥");
         // 获取沙箱测试的密钥
-        Map<String, Object> requestParams = new LinkedHashMap<>();
+        final Map<String, Object> requestParams = new LinkedHashMap<>();
         requestParams.put("mch_id", wxpayMchId);
         requestParams.put("nonce_str", RandomEx.randomUUID());
         SignUtils.sign2(requestParams, wxpaySignKey);
@@ -165,13 +167,13 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
      * @throws SAXException
      */
     @Override
-    public WxpayPrepayRo prepay(WxpayPrepayTo to) throws SAXException {
+    public WxpayPrepayRo prepay(final WxpayPrepayTo to) throws SAXException {
         _log.info("微信支付-预支付：{}", to);
-        WxpayPrepayRo ro = new WxpayPrepayRo();
+        final WxpayPrepayRo ro = new WxpayPrepayRo();
 
         _log.info("检验参数是否正确");
         if (to.getUserId() == null || to.getTradeAmount() == null || StringUtils.isAnyBlank(to.getWxId(), to.getTradeTitle(), to.getIp())) {
-            String msg = "没有填写必要的参数: " + to;
+            final String msg = "没有填写必要的参数: " + to;
             _log.warn(msg);
             ro.setResult(WxpayPrepayResultDic.PARAM_ERROR);
             ro.setFailReason(msg);
@@ -179,7 +181,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
         }
 
         _log.info("组织要传递的参数");
-        Map<String, Object> requestParams = new LinkedHashMap<>();
+        final Map<String, Object> requestParams = new LinkedHashMap<>();
         requestParams.put("appid", wxAppId);
         requestParams.put("mch_id", wxpayMchId);
         requestParams.put("openid", to.getWxId());
@@ -208,7 +210,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
             _log.info("请求微信支付-预支付");
             respMap = OkhttpUtils.postByXmlParams(url, requestParams);
         } catch (IOException | DocumentException e) {
-            String msg = "请求微信支付-预支付出现异常";
+            final String msg = "请求微信支付-预支付出现异常";
             _log.error(msg, e);
             ro.setResult(WxpayPrepayResultDic.FAILT);
             ro.setFailReason(msg);
@@ -218,7 +220,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
         _log.info("微信支付-预支付响应内容: {}", MapUtils.map2Str(respMap));
         // 验证签名
         if (!SignUtils.verify2(respMap, signKey)) {
-            String msg = "请求微信支付-预支付返回的签名有问题，很可能是有人想模仿微信服务器返回“假”的支付成功的讯息！";
+            final String msg = "请求微信支付-预支付返回的签名有问题，很可能是有人想模仿微信服务器返回“假”的支付成功的讯息！";
             _log.error(msg);
             ro.setResult(WxpayPrepayResultDic.FAILT);
             ro.setFailReason(msg);
@@ -228,7 +230,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
         if ("SUCCESS".equals(respMap.get("return_code")) && "SUCCESS".equals(respMap.get("result_code"))) {
             _log.info("检验传回来的参数是否和传上去的参数对应");
             if (!wxAppId.equals(respMap.get("appid")) || !wxpayMchId.equals(respMap.get("mch_id"))) {
-                String msg = "请求微信支付-预支付返回的值与传递的参数未对应，很可能是有人想模仿微信服务器返回“假”的支付成功的讯息！";
+                final String msg = "请求微信支付-预支付返回的值与传递的参数未对应，很可能是有人想模仿微信服务器返回“假”的支付成功的讯息！";
                 _log.error(msg);
                 ro.setResult(WxpayPrepayResultDic.FAILT);
                 ro.setFailReason(msg);
@@ -240,8 +242,8 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
             // 缓存销售订单ID/金额，以备接收到支付通知后校验通知是否正确（有效期2小时）
             try {
                 redisClient.set(WxpayRedisCo.REDIS_KEY_WXPAY_ORDERID_PREFIX + to.getOrderId(), to.getTradeAmount().toString(), 2 * 60 * 60);
-            } catch (RedisSetException e) {
-                String msg = "微信支付-预支付获取到预支付ID后，使用redis缓存失败:" + prepayId;
+            } catch (final RedisSetException e) {
+                final String msg = "微信支付-预支付获取到预支付ID后，使用redis缓存失败:" + prepayId;
                 _log.error(msg, e);
                 ro.setResult(WxpayPrepayResultDic.CACHE_FAIL);
                 ro.setFailReason(msg);
@@ -249,8 +251,9 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
             }
 
             // 如果是沙箱测试会返回签名密钥
-            if (wxpayTest)
+            if (wxpayTest) {
                 prepayId += ";" + _signkeyOfSandbox;
+            }
             _log.info("微信支付-预支付成功: {}", prepayId);
             ro.setResult(WxpayPrepayResultDic.SUCCESS);
             ro.setPrepayId(prepayId);
@@ -271,9 +274,9 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
      * @throws SAXException
      */
     @Override
-    public WxpayOrderQueryRo queryOrder(String orderId) throws SAXException {
+    public WxpayOrderQueryRo queryOrder(final String orderId) throws SAXException {
         _log.info("微信支付-查询订单：订单号-{}", orderId);
-        WxpayOrderQueryRo ro = new WxpayOrderQueryRo();
+        final WxpayOrderQueryRo ro = new WxpayOrderQueryRo();
 
         _log.info("检验参数是否正确");
         if (StringUtils.isBlank(orderId)) {
@@ -282,7 +285,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
         }
 
         _log.info("组织请求要传递的参数");
-        Map<String, Object> requestParams = new LinkedHashMap<>();
+        final Map<String, Object> requestParams = new LinkedHashMap<>();
         requestParams.put("appid", wxAppId);
         requestParams.put("mch_id", wxpayMchId);
         requestParams.put("nonce_str", RandomEx.randomUUID());
@@ -303,7 +306,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
             _log.info("请求微信支付-查询订单");
             respMap = OkhttpUtils.postByXmlParams(url, requestParams);
         } catch (IOException | DocumentException e) {
-            String msg = "请求微信支付-查询订单出现异常";
+            final String msg = "请求微信支付-查询订单出现异常";
             _log.error(msg, e);
             return null;
         }
@@ -324,10 +327,10 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
             // 取出响应的关键内容作为返回值
             ro.setTradeAmount(MoneyUtils.fen2yuan(String.valueOf(respMap.get("total_fee"))));       // 订单金额(将“分”转为“元”)
             ro.setPayOrderId(String.valueOf(respMap.get("transaction_id")));                        // 微信支付订单号
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
             try {
                 ro.setPayTime(sdf.parse(String.valueOf(respMap.get("time_end"))));                  // 支付完成时间
-            } catch (ParseException e) {
+            } catch (final ParseException e) {
                 _log.error("解析支付完成时间格式出错: {}", respMap.get("time_end"));
                 return null;
             }
@@ -342,9 +345,9 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
      * 微信支付-处理支付完成的通知
      */
     @Override
-    public String handleNotify(Map<String, Object> reqParams) {
+    public String handleNotify(final Map<String, Object> reqParams) {
         _log.info("处理微信支付-支付通知：{}", reqParams);
-        Map<String, Object> roMap = new LinkedHashMap<>();
+        final Map<String, Object> roMap = new LinkedHashMap<>();
 
         String signKey;
         if (wxpayTest) {
@@ -375,12 +378,12 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 
             _log.info("检查是否有此订单号及金额是否正确");
             // 金额
-            Double payAmount = MoneyUtils.fen2yuan(String.valueOf(reqParams.get("total_fee")));
+            final Double payAmount = MoneyUtils.fen2yuan(String.valueOf(reqParams.get("total_fee")));
             // 销售订单ID
-            String orderId = String.valueOf(reqParams.get("out_trade_no"));
+            final String orderId = String.valueOf(reqParams.get("out_trade_no"));
             if (!wxpayRepair) {
                 // 获取缓存中销售订单的金额
-                String sPayAmount = redisClient.get(WxpayRedisCo.REDIS_KEY_WXPAY_ORDERID_PREFIX + orderId);
+                final String sPayAmount = redisClient.get(WxpayRedisCo.REDIS_KEY_WXPAY_ORDERID_PREFIX + orderId);
                 if (sPayAmount == null) {
                     _log.error("在缓存中找不到此销售订单: {}", orderId);
                     _log.info("返回微信找不到此销售订单");
@@ -398,18 +401,18 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 
             _log.info("将微信支付完成的消息加入消息队列");
             // 取出响应的关键内容作为返回值
-            WxpayPayDoneMsg msg = new WxpayPayDoneMsg();
+            final WxpayPayDoneMsg msg = new WxpayPayDoneMsg();
             msg.setUserId(Long.parseLong(String.valueOf(reqParams.get("attach"))));                            // 用户ID
             msg.setPayAccountId(String.valueOf(reqParams.get("openid")));                                      // 微信ID
             msg.setPayAmount(new BigDecimal(payAmount.toString()));                                            // 订单金额(将“分”转为“元”)
-            msg.setPayOrderId(String.valueOf(reqParams.get("transaction_id")));                                // 微信支付订单号
+            msg.setTradeId(String.valueOf(reqParams.get("transaction_id")));                                // 微信支付订单号
             msg.setOrderId(String.valueOf(reqParams.get("out_trade_no")));                                     // 订单号
-            String sPayTime = String.valueOf(reqParams.get("time_end"));                                            // 支付完成时间
+            final String sPayTime = String.valueOf(reqParams.get("time_end"));                                            // 支付完成时间
             // 解析支付完成时间
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
             try {
                 msg.setPayTime(sdf.parse(sPayTime));
-            } catch (ParseException e) {
+            } catch (final ParseException e) {
                 _log.error("解析支付完成时间格式失败: {}", sPayTime);
                 _log.info("返回解析支付完成时间格式失败");
                 roMap.put("return_code", "FAIL");

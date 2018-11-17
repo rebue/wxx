@@ -8,3 +8,4 @@ app.properties
 .springBeans
 .DS_Store
 rebel.xml
+pom.xml.versionsBackup
