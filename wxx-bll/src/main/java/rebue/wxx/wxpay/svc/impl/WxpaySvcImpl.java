@@ -484,8 +484,20 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 		requestParams.put("out_refund_no", to.getRefundId());
 		requestParams.put("total_fee", String.valueOf(MoneyUtils.yuan2fen(to.getOrderAmount())));
 		requestParams.put("refund_fee", String.valueOf(MoneyUtils.yuan2fen(to.getRefundAmount())));
-		_log.info("请求退款的参数：" + requestParams);
+		String signKey;
+		String url;
+		if (wxpayTest) {
+			signKey = _signkeyOfSandbox;
+			url = WXPayConstants.SANDBOX_REFUND_URL_SUFFIX;
+		} else {
+			signKey = wxpaySignKey;
+			url = WXPayConstants.REFUND_URL_SUFFIX;
+		}
+		_log.info("签名信息：" + signKey);
+		// 签名
+		SignUtils.sign2(requestParams, signKey);
 		String refundData = XmlUtils.mapToXml(requestParams);
+		_log.info("请求退款的参数：" + refundData);
 		String result = null;
 		try {
 			WxPayConfigEx config = new WxPayConfigEx();
@@ -494,18 +506,6 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 			config.setWxpaySignKey(wxpaySignKey);
 			config.setFileRoute(certUrl);
 			_log.info("微信配置信息：" + config);
-			String signKey;
-			String url;
-			if (wxpayTest) {
-				signKey = _signkeyOfSandbox;
-				url = WXPayConstants.SANDBOX_REFUND_URL_SUFFIX;
-			} else {
-				signKey = wxpaySignKey;
-				url = WXPayConstants.REFUND_URL_SUFFIX;
-			}
-			_log.info("签名信息：" + signKey);
-			// 签名
-			SignUtils.sign2(requestParams, signKey);
 			WXPayRequest wxPayRequest = new WXPayRequest(config);
 			result = wxPayRequest.requestWithCert(url, RandomEx.randomUUID(), refundData, false);
 		} catch (Exception e) {
