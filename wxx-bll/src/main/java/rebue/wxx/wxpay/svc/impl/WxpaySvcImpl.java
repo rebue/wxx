@@ -484,6 +484,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 		requestParams.put("out_refund_no", to.getRefundId());
 		requestParams.put("total_fee", String.valueOf(MoneyUtils.yuan2fen(to.getOrderAmount())));
 		requestParams.put("refund_fee", String.valueOf(MoneyUtils.yuan2fen(to.getRefundAmount())));
+		_log.info("请求退款的参数：" + requestParams);
 		String refundData = XmlUtils.mapToXml(requestParams);
 		String result = null;
 		try {
@@ -524,6 +525,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
 		} else if ("FAIL".equals(refundResultMap.get("return_code"))) {
 			_log.info("微信退款失败");
 			refundRo.setResult(WxRefundResultDic.FAILT);
+			refundRo.setFailReason(refundResultMap.get("return_msg").toString());
 		}
 		return refundRo;
 	}
