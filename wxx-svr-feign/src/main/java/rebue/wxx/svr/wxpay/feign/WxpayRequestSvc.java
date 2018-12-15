@@ -5,10 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.xml.sax.SAXException;
 
 import rebue.sbs.feign.FeignConfig;
+import rebue.wxx.wxpay.ro.WxRefundRo;
 import rebue.wxx.wxpay.ro.WxpayOrderQueryRo;
 import rebue.wxx.wxpay.ro.WxpayPrepayRo;
+import rebue.wxx.wxpay.to.WxRefundTo;
 import rebue.wxx.wxpay.to.WxpayPrepayTo;
 
 @FeignClient(name = "wxx-svr", configuration = FeignConfig.class)
@@ -24,4 +27,10 @@ public interface WxpayRequestSvc {
      */
     @GetMapping("/wxx/wxpay/request/queryorder")
     WxpayOrderQueryRo queryOrder(@RequestParam("orderId") String orderId);
+    
+    /**
+     * 微信支付-微信退款
+     */
+    @PostMapping("/wxx/wxpay/request/refund")
+    WxRefundRo refund(@RequestBody WxRefundTo to);
 }
