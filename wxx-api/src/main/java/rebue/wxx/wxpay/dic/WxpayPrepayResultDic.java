@@ -74,4 +74,9 @@ public enum WxpayPrepayResultDic implements EnumBase {
     public int getCode() {
         return code;
     }
+    
+    @Override
+    public String getName() {
+        return name();
+    }
 }
