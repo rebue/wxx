@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.dom4j.DocumentException;
 import org.slf4j.Logger;
@@ -96,8 +95,7 @@ public class WxxResponseRestCtrl {
      *            获取到授权的code
      */
     @GetMapping("/wxx/response/authorizecode")
-    ModelAndView authorizeCode(@RequestParam("code") final String code, @RequestParam(value = "state", required = false) final String state, final HttpServletResponse resp)
-            throws IOException {
+    ModelAndView authorizeCode(@RequestParam("code") final String code, @RequestParam(value = "state", required = false) final String state) throws IOException {
         _log.info("接收到微信授权回调: {}，{}", code, state);
         final Map<String, Object> userInfo = wxxResponseSvc.authorizeCode(code);
         ModelAndView modelAndView;

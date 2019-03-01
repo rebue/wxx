@@ -127,7 +127,7 @@ public class WxxResponseSvcImpl implements WxxResponseSvc {
      */
     @Override
     public Map<String, Object> authorizeCode(final String code) throws IOException {
-        _log.info("网页授权第一步：用户同意授权，微信服务器回调，获取到code:{}", code);
+        _log.info("网页授权第一步：用户同意授权，微信服务器回调: code-{}", code);
         // 网页授权第二步之前：先通过code查找是否已有成功获取用户信息的缓存
         final Map<String, Object> userInfoCache = wxxRequestSvc.getUserInfoCache(code);
         if (userInfoCache != null) {
