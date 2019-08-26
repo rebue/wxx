@@ -5,69 +5,67 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.github.wxpay.sdk.IWXPayDomain;
 import com.github.wxpay.sdk.WXPayConfig;
-import com.github.wxpay.sdk.WXPayConstants;
 
 @Service
-public class WxPayConfigEx extends WXPayConfig{
-	
-	private String wxAppId;
-	
-	private String wxpayMchId;
-	
-	private String wxpaySignKey;
-	
-	private String fileRoute;
-	
-	public void setWxAppId(String wxAppId) {
-		this.wxAppId = wxAppId;
-	}
+public class WxPayConfigEx extends WXPayConfig {
 
-	public void setWxpayMchId(String wxpayMchId) {
-		this.wxpayMchId = wxpayMchId;
-	}
+    private String wxAppId;
 
-	public void setWxpaySignKey(String wxpaySignKey) {
-		this.wxpaySignKey = wxpaySignKey;
-	}
+    private String wxpayMchId;
 
-	public void setFileRoute(String fileRoute) {
-		this.fileRoute = fileRoute;
-	}
+    private String wxpaySignKey;
 
-	@Override
-	public String getAppID() {
-		return wxAppId;
-	}
+    private String fileRoute;
 
-	@Override
-	public String getMchID() {
-		return wxpayMchId;
-	}
+    public void setWxAppId(final String wxAppId) {
+        this.wxAppId = wxAppId;
+    }
 
-	@Override
-	public String getKey() {
-		return wxpaySignKey;
-	}
-	
-	@Override
-	public InputStream getCertStream() {
-		FileInputStream instream = null;
-		try {
-			 instream = new FileInputStream(new File(fileRoute));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		return instream;
-	}
+    public void setWxpayMchId(final String wxpayMchId) {
+        this.wxpayMchId = wxpayMchId;
+    }
 
-	@Override
-	public IWXPayDomain getWXPayDomain() {
-		return new WxPayDomainImp();
-	}
+    public void setWxpaySignKey(final String wxpaySignKey) {
+        this.wxpaySignKey = wxpaySignKey;
+    }
+
+    public void setFileRoute(final String fileRoute) {
+        this.fileRoute = fileRoute;
+    }
+
+    @Override
+    public String getAppID() {
+        return wxAppId;
+    }
+
+    @Override
+    public String getMchID() {
+        return wxpayMchId;
+    }
+
+    @Override
+    public String getKey() {
+        return wxpaySignKey;
+    }
+
+    @Override
+    public InputStream getCertStream() {
+        FileInputStream instream = null;
+        try {
+            instream = new FileInputStream(new File(fileRoute));
+        } catch (final FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return instream;
+    }
+
+    @Override
+    public IWXPayDomain getWXPayDomain() {
+        return new WxPayDomainImp();
+    }
 
 }
