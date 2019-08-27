@@ -65,7 +65,7 @@ public class WxxAccessTokenSvcImpl implements WxxAccessTokenSvc {
             requestAccessToken();
         } else {
             final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            _log.debug("还未到计划下次发出请求的时间: {}", sdf.format(_nextRequestTime));
+            _log.trace("还未到计划下次发出请求的时间: {}", sdf.format(_nextRequestTime));
         }
 
     }

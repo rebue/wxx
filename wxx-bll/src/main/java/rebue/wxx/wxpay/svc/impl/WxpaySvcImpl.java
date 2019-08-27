@@ -85,7 +85,7 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
     /**
      * 商户号ID
      */
-    @Value("${wxx.wxpay.mchid}")
+    @Value("${wxx.wxpay.mchid:null}")
     private String          wxpayMchId;
 
     /**
@@ -101,18 +101,18 @@ public class WxpaySvcImpl implements WxpaySvc, ApplicationListener<ApplicationSt
     /**
      * 微信支付-签名密钥 签名用的key，在商户平台设置（微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置
      */
-    @Value("${wxx.wxpay.signKey}")
+    @Value("${wxx.wxpay.signKey:null}")
     private String          wxpaySignKey;
     /**
      * 微信支付-支付完成通知的URL
      */
-    @Value("${wxx.wxpay.payNotifyUrl}")
+    @Value("${wxx.wxpay.payNotifyUrl:null}")
     private String          wxpayPayNotifyUrl;
 
     /**
      * 微信退款证书路径
      */
-    @Value("${wxx.wxpay.certUrl}")
+    @Value("${wxx.wxpay.certUrl:null}")
     private String          certUrl;
 
     @Resource

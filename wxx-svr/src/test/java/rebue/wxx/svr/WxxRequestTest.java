@@ -10,11 +10,11 @@ import rebue.sbs.redis.RedisSetException;
 import rebue.wheel.OkhttpUtils;
 
 public class WxxRequestTest {
-    private final static String _hostUrl = "http://127.0.0.1:20080";
-    private final static String _openid  = "ous-5whDpUPOxd18-XpzMRLEEllo";
-
-//    private final static String _hostUrl = "http://www.nnzbz.cc";
+//    private final static String _hostUrl = "http://127.0.0.1:20080";
+    private final static String _hostUrl = "http://www.nnzbz.cn";
 //    private final static String _hostUrl = "http://www.duamai.com/wxx-svr";
+
+    private final static String _openid = "ous-5whDpUPOxd18-XpzMRLEEllo";
 
     /**
      * 创建菜单

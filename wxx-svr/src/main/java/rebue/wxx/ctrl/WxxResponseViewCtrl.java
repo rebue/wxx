@@ -2,8 +2,6 @@ package rebue.wxx.ctrl;
 
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import rebue.wheel.MapUtils;
 import rebue.wheel.turing.SignUtils;
-import rebue.wxx.svc.WxxResponseSvc;
 
 /**
  * 响应微信发过来请求的控制器（要求响应视图的请求）
@@ -22,25 +19,25 @@ import rebue.wxx.svc.WxxResponseSvc;
 public class WxxResponseViewCtrl {
     private static final Logger _log = LoggerFactory.getLogger(WxxResponseViewCtrl.class);
 
-    @Resource
-    private WxxResponseSvc      wxxResponseSvc;
+//    @Resource
+//    private WxxResponseSvc      wxxResponseSvc;
 
     /**
      * 微信登录回调的签名key
      */
     @Value("${wxx.loginCallback.signKey}")
-    private String              wxLoginCallbackSignKey;
+    private String wxLoginCallbackSignKey;
 
-    /**
-     * 微信登录回调的地址
-     */
-    @Value("${wxx.loginCallback.url}")
-    private String              wxLoginCallbackUrl;
-    /**
-     * 微信登录回调的地址方法类型(GET/POST/PUT/DELETE....)
-     */
-    @Value("${wxx.loginCallback.methodType}")
-    private String              wxLoginCallbackMethodType;
+//    /**
+//     * 微信登录回调的地址
+//     */
+//    @Value("${wxx.loginCallback.url}")
+//    private String              wxLoginCallbackUrl;
+//    /**
+//     * 微信登录回调的地址方法类型(GET/POST/PUT/DELETE....)
+//     */
+//    @Value("${wxx.loginCallback.methodType}")
+//    private String              wxLoginCallbackMethodType;
 
     /**
      * 微信用户登录测试页面

@@ -47,7 +47,7 @@ public class WxxResponseRestCtrl {
     /**
      * 微信登录回调的地址方法类型(GET/POST/PUT/DELETE....)
      */
-    @Value("${wxx.loginCallback.methodType}")
+    @Value("${wxx.loginCallback.methodType:GET}")
     private String              wxLoginCallbackMethodType;
     /**
      * 微信登录回调的签名key

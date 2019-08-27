@@ -54,7 +54,7 @@ public class WxxResponseSvcImpl implements WxxResponseSvc {
      */
     @Override
     public String authorize(final WxAuthorizeVo vo) {
-        _log.info("接收到微信验证本服务器的请求");
+        _log.info("接收到微信验证本服务器的请求:{}", vo);
 
         _log.info("检查传入参数的是否齐全");
         if (StringUtils.isAnyBlank(vo.getSignature(), vo.getTimestamp(), vo.getNonce(), vo.getEchostr())) {
