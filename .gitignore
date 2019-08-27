@@ -9,3 +9,5 @@ app.properties
 .DS_Store
 rebel.xml
 pom.xml.versionsBackup
+application-prod.yml
+application-dev.yml
