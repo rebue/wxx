@@ -13,7 +13,7 @@ import rebue.wxx.wxpay.ro.WxpayPrepayRo;
 import rebue.wxx.wxpay.to.WxRefundTo;
 import rebue.wxx.wxpay.to.WxpayPrepayTo;
 
-@FeignClient(name = "wxx-svr", configuration = FeignConfig.class)
+@FeignClient(name = "wxx-svr", configuration = FeignConfig.class, contextId = "wxx-svr-wxpay-request")
 public interface WxpayRequestSvc {
     /**
      * 微信支付-预支付

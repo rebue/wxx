@@ -21,7 +21,7 @@ public class RequestTask {
 
     @Scheduled(fixedDelayString = "${wxx.accesstoken.requestFixedDelay:180000}")
     public void executeTasks() {
-        _log.info("定时执行请求access token的任务");
+        _log.trace("定时执行请求access token的任务");
         wxxAccessTokenSvc.refreshAccessToken();
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import rebue.sbs.feign.FeignConfig;
 
-@FeignClient(name = "wxx-svr", configuration = FeignConfig.class)
+@FeignClient(name = "wxx-svr", configuration = FeignConfig.class, contextId = "wxx-svr-wxx-request")
 public interface WxxRequestSvc {
     /**
      * 获取AccessToken
@@ -21,7 +21,7 @@ public interface WxxRequestSvc {
      * 是否关注微信公众号
      */
     @GetMapping("/wxx/request/issubscribe")
-    public Boolean isSubscribe(@RequestParam("openId") String openId);
+    Boolean isSubscribe(@RequestParam("openId") String openId);
 
     /**
      * 更新微信公众号菜单
