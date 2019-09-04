@@ -87,6 +87,33 @@ public class WxxAppMo implements Serializable {
     private String menu;
 
     /**
+     *    登录回调链接
+     *
+     *    数据库字段: WXX_APP.LOGIN_CALLBACK_URL
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    private String loginCallbackUrl;
+
+    /**
+     *    登录回调方法类型
+     *
+     *    数据库字段: WXX_APP.LOGIN_CALLBACK_METHOD_TYPE
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    private String loginCallbackMethodType;
+
+    /**
+     *    登录回调签名密钥
+     *
+     *    数据库字段: WXX_APP.LOGIN_CALLBACK_SIGNKEY
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    private String loginCallbackSignkey;
+
+    /**
      *    微信支付完成通知的URL
      *
      *    数据库字段: WXX_APP.WXPAY_NOTIFY_URL
@@ -277,6 +304,72 @@ public class WxxAppMo implements Serializable {
     }
 
     /**
+     *    登录回调链接
+     *
+     *    数据库字段: WXX_APP.LOGIN_CALLBACK_URL
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public String getLoginCallbackUrl() {
+        return loginCallbackUrl;
+    }
+
+    /**
+     *    登录回调链接
+     *
+     *    数据库字段: WXX_APP.LOGIN_CALLBACK_URL
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public void setLoginCallbackUrl(String loginCallbackUrl) {
+        this.loginCallbackUrl = loginCallbackUrl;
+    }
+
+    /**
+     *    登录回调方法类型
+     *
+     *    数据库字段: WXX_APP.LOGIN_CALLBACK_METHOD_TYPE
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public String getLoginCallbackMethodType() {
+        return loginCallbackMethodType;
+    }
+
+    /**
+     *    登录回调方法类型
+     *
+     *    数据库字段: WXX_APP.LOGIN_CALLBACK_METHOD_TYPE
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public void setLoginCallbackMethodType(String loginCallbackMethodType) {
+        this.loginCallbackMethodType = loginCallbackMethodType;
+    }
+
+    /**
+     *    登录回调签名密钥
+     *
+     *    数据库字段: WXX_APP.LOGIN_CALLBACK_SIGNKEY
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public String getLoginCallbackSignkey() {
+        return loginCallbackSignkey;
+    }
+
+    /**
+     *    登录回调签名密钥
+     *
+     *    数据库字段: WXX_APP.LOGIN_CALLBACK_SIGNKEY
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    public void setLoginCallbackSignkey(String loginCallbackSignkey) {
+        this.loginCallbackSignkey = loginCallbackSignkey;
+    }
+
+    /**
      *    微信支付完成通知的URL
      *
      *    数据库字段: WXX_APP.WXPAY_NOTIFY_URL
@@ -315,6 +408,9 @@ public class WxxAppMo implements Serializable {
         sb.append(", encodeingAesKey=").append(encodeingAesKey);
         sb.append(", subscribeAutoReply=").append(subscribeAutoReply);
         sb.append(", menu=").append(menu);
+        sb.append(", loginCallbackUrl=").append(loginCallbackUrl);
+        sb.append(", loginCallbackMethodType=").append(loginCallbackMethodType);
+        sb.append(", loginCallbackSignkey=").append(loginCallbackSignkey);
         sb.append(", wxpayNotifyUrl=").append(wxpayNotifyUrl);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

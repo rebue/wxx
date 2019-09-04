@@ -93,6 +93,33 @@ public class WxxAppJo implements Serializable {
     private String menu;
 
     /**
+     * 登录回调链接
+     *
+     * @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @Basic(optional = false)
+    @Column(name = "LOGIN_CALLBACK_URL", nullable = false, length = 300)
+    private String loginCallbackUrl;
+
+    /**
+     * 登录回调方法类型
+     *
+     * @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @Basic(optional = false)
+    @Column(name = "LOGIN_CALLBACK_METHOD_TYPE", nullable = false, length = 6)
+    private String loginCallbackMethodType;
+
+    /**
+     * 登录回调签名密钥
+     *
+     * @mbg.generated 自动生成，如需修改，请删除本行
+     */
+    @Basic(optional = true)
+    @Column(name = "LOGIN_CALLBACK_SIGNKEY", nullable = true, length = 64)
+    private String loginCallbackSignkey;
+
+    /**
      * 微信支付完成通知的URL
      *
      * @mbg.generated 自动生成，如需修改，请删除本行

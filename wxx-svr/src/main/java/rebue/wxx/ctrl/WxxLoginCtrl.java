@@ -1,18 +1,19 @@
 package rebue.wxx.ctrl;
 
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import lombok.extern.slf4j.Slf4j;
+import rebue.wheel.turing.SignUtils;
 
 /**
  * 响应微信发过来请求的控制器
  */
 @RestController
-@RefreshScope
 @Slf4j
 public class WxxLoginCtrl {
     private static final String urlFormat = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=%2$s" //
@@ -56,4 +57,17 @@ public class WxxLoginCtrl {
         log.info("received get:/wxx/login/redirect: redirectHost-{} appId-{} state-{}", redirectHost, appId, state);
         return new ModelAndView("redirect:" + getLoginUrl(redirectHost, appId, state));
     }
+
+    /**
+     * 微信用户登录测试页面
+     */
+    @GetMapping("/wxx/login/test")
+    public ModelAndView login(@RequestParam final Map<String, Object> requestParams) {
+        log.info("wxx login callback: {}", requestParams);
+        if (!SignUtils.verify1(requestParams, "LoginAbc12345Test")) {
+            return null;
+        }
+        return new ModelAndView("LoginTest");// templates/Reg.ftl
+    }
+
 }
