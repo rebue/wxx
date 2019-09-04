@@ -35,7 +35,7 @@ public class WxxAppJo implements Serializable {
      */
     @Id
     @Basic(optional = false)
-    @Column(name = "ID", nullable = false, length = 30)
+    @Column(name = "ID", nullable = false, length = 32)
     private String id;
 
     /**
@@ -93,6 +93,8 @@ public class WxxAppJo implements Serializable {
     private String menu;
 
     /**
+     * 微信支付完成通知的URL
+     *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Basic(optional = true)
@@ -100,12 +102,12 @@ public class WxxAppJo implements Serializable {
     private String wxpayNotifyUrl;
 
     /**
-     * 商
+     * 商户号
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    @JoinColumn(name = "MCH_ID", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "MCH_ID", referencedColumnName = "ID")
+    @ManyToOne()
     private WxxMchJo mch;
 
     /**

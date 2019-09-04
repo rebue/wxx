@@ -1,301 +1,305 @@
 package rebue.wxx.mo;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.io.Serializable;
 
 /**
-App信息
-
-数据库表: WXX_APP
-
-@mbg.generated 自动生成的注释，如需修改本注释，请删除本行
-*/
+ * App信息
+ *
+ * 数据库表: WXX_APP
+ *
+ * @mbg.generated 自动生成的注释，如需修改本注释，请删除本行
+ */
 @JsonInclude(Include.NON_NULL)
 public class WxxAppMo implements Serializable {
+
     /**
-    APP_ID
-    
-    数据库字段: WXX_APP.ID
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    APP_ID
+     *
+     *    数据库字段: WXX_APP.ID
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     private String id;
 
     /**
-    APP名称
-    
-    数据库字段: WXX_APP.NAME
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    APP名称
+     *
+     *    数据库字段: WXX_APP.NAME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     private String name;
 
     /**
-    商户号
-    
-    数据库字段: WXX_APP.MCH_ID
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    商户号
+     *
+     *    数据库字段: WXX_APP.MCH_ID
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     private String mchId;
 
     /**
-    APP_SECRET
-    
-    数据库字段: WXX_APP.APP_SECRET
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    APP_SECRET
+     *
+     *    数据库字段: WXX_APP.APP_SECRET
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     private String appSecret;
 
     /**
-    TOKEN
-    
-    数据库字段: WXX_APP.TOKEN
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    TOKEN
+     *
+     *    数据库字段: WXX_APP.TOKEN
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     private String token;
 
     /**
-    ENCODEING_AES_KEY
-    
-    数据库字段: WXX_APP.ENCODEING_AES_KEY
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    ENCODEING_AES_KEY
+     *
+     *    数据库字段: WXX_APP.ENCODEING_AES_KEY
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     private String encodeingAesKey;
 
     /**
-    用户关注后自动回复的文本
-    
-    数据库字段: WXX_APP.SUBSCRIBE_AUTO_REPLY
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    用户关注后自动回复的文本
+     *
+     *    数据库字段: WXX_APP.SUBSCRIBE_AUTO_REPLY
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     private String subscribeAutoReply;
 
     /**
-    自定义菜单
-    
-    数据库字段: WXX_APP.MENU
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    自定义菜单
+     *
+     *    数据库字段: WXX_APP.MENU
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     private String menu;
 
     /**
-    
-    数据库字段: WXX_APP.WXPAY_NOTIFY_URL
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    微信支付完成通知的URL
+     *
+     *    数据库字段: WXX_APP.WXPAY_NOTIFY_URL
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     private String wxpayNotifyUrl;
 
     /**
-    @mbg.generated 自动生成，如需修改，请删除本行
+     *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     private static final long serialVersionUID = 1L;
 
     /**
-    APP_ID
-    
-    数据库字段: WXX_APP.ID
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    APP_ID
+     *
+     *    数据库字段: WXX_APP.ID
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public String getId() {
         return id;
     }
 
     /**
-    APP_ID
-    
-    数据库字段: WXX_APP.ID
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    APP_ID
+     *
+     *    数据库字段: WXX_APP.ID
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-    APP名称
-    
-    数据库字段: WXX_APP.NAME
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    APP名称
+     *
+     *    数据库字段: WXX_APP.NAME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public String getName() {
         return name;
     }
 
     /**
-    APP名称
-    
-    数据库字段: WXX_APP.NAME
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    APP名称
+     *
+     *    数据库字段: WXX_APP.NAME
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-    商户号
-    
-    数据库字段: WXX_APP.MCH_ID
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    商户号
+     *
+     *    数据库字段: WXX_APP.MCH_ID
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public String getMchId() {
         return mchId;
     }
 
     /**
-    商户号
-    
-    数据库字段: WXX_APP.MCH_ID
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    商户号
+     *
+     *    数据库字段: WXX_APP.MCH_ID
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public void setMchId(String mchId) {
         this.mchId = mchId;
     }
 
     /**
-    APP_SECRET
-    
-    数据库字段: WXX_APP.APP_SECRET
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    APP_SECRET
+     *
+     *    数据库字段: WXX_APP.APP_SECRET
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public String getAppSecret() {
         return appSecret;
     }
 
     /**
-    APP_SECRET
-    
-    数据库字段: WXX_APP.APP_SECRET
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    APP_SECRET
+     *
+     *    数据库字段: WXX_APP.APP_SECRET
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public void setAppSecret(String appSecret) {
         this.appSecret = appSecret;
     }
 
     /**
-    TOKEN
-    
-    数据库字段: WXX_APP.TOKEN
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    TOKEN
+     *
+     *    数据库字段: WXX_APP.TOKEN
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public String getToken() {
         return token;
     }
 
     /**
-    TOKEN
-    
-    数据库字段: WXX_APP.TOKEN
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    TOKEN
+     *
+     *    数据库字段: WXX_APP.TOKEN
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public void setToken(String token) {
         this.token = token;
     }
 
     /**
-    ENCODEING_AES_KEY
-    
-    数据库字段: WXX_APP.ENCODEING_AES_KEY
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    ENCODEING_AES_KEY
+     *
+     *    数据库字段: WXX_APP.ENCODEING_AES_KEY
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public String getEncodeingAesKey() {
         return encodeingAesKey;
     }
 
     /**
-    ENCODEING_AES_KEY
-    
-    数据库字段: WXX_APP.ENCODEING_AES_KEY
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    ENCODEING_AES_KEY
+     *
+     *    数据库字段: WXX_APP.ENCODEING_AES_KEY
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public void setEncodeingAesKey(String encodeingAesKey) {
         this.encodeingAesKey = encodeingAesKey;
     }
 
     /**
-    用户关注后自动回复的文本
-    
-    数据库字段: WXX_APP.SUBSCRIBE_AUTO_REPLY
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    用户关注后自动回复的文本
+     *
+     *    数据库字段: WXX_APP.SUBSCRIBE_AUTO_REPLY
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public String getSubscribeAutoReply() {
         return subscribeAutoReply;
     }
 
     /**
-    用户关注后自动回复的文本
-    
-    数据库字段: WXX_APP.SUBSCRIBE_AUTO_REPLY
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    用户关注后自动回复的文本
+     *
+     *    数据库字段: WXX_APP.SUBSCRIBE_AUTO_REPLY
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public void setSubscribeAutoReply(String subscribeAutoReply) {
         this.subscribeAutoReply = subscribeAutoReply;
     }
 
     /**
-    自定义菜单
-    
-    数据库字段: WXX_APP.MENU
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    自定义菜单
+     *
+     *    数据库字段: WXX_APP.MENU
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public String getMenu() {
         return menu;
     }
 
     /**
-    自定义菜单
-    
-    数据库字段: WXX_APP.MENU
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    自定义菜单
+     *
+     *    数据库字段: WXX_APP.MENU
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public void setMenu(String menu) {
         this.menu = menu;
     }
 
     /**
-    
-    数据库字段: WXX_APP.WXPAY_NOTIFY_URL
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    微信支付完成通知的URL
+     *
+     *    数据库字段: WXX_APP.WXPAY_NOTIFY_URL
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public String getWxpayNotifyUrl() {
         return wxpayNotifyUrl;
     }
 
     /**
-    
-    数据库字段: WXX_APP.WXPAY_NOTIFY_URL
-    
-    @mbg.generated 自动生成，如需修改，请删除本行
-    */
+     *    微信支付完成通知的URL
+     *
+     *    数据库字段: WXX_APP.WXPAY_NOTIFY_URL
+     *
+     *    @mbg.generated 自动生成，如需修改，请删除本行
+     */
     public void setWxpayNotifyUrl(String wxpayNotifyUrl) {
         this.wxpayNotifyUrl = wxpayNotifyUrl;
     }
 
     /**
-    @mbg.generated 自动生成，如需修改，请删除本行
+     *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Override
     public String toString() {
@@ -318,7 +322,7 @@ public class WxxAppMo implements Serializable {
     }
 
     /**
-    @mbg.generated 自动生成，如需修改，请删除本行
+     *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Override
     public boolean equals(Object that) {
@@ -332,12 +336,11 @@ public class WxxAppMo implements Serializable {
             return false;
         }
         WxxAppMo other = (WxxAppMo) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-        ;
+        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()));
     }
 
     /**
-    @mbg.generated 自动生成，如需修改，请删除本行
+     *    @mbg.generated 自动生成，如需修改，请删除本行
      */
     @Override
     public int hashCode() {

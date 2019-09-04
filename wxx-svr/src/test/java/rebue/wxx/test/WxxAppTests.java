@@ -1,14 +1,11 @@
 package rebue.wxx.test;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import rebue.robotech.dic.ResultDic;
 import rebue.robotech.ro.IdRo;
 import rebue.robotech.ro.Ro;
@@ -26,17 +23,17 @@ public class WxxAppTests {
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private static final Logger _log          = LoggerFactory.getLogger(WxxAppTests.class);
+    private static final Logger _log = LoggerFactory.getLogger(WxxAppTests.class);
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private final String        hostUrl       = "http://127.0.0.1:20080";
+    private final String hostUrl = "http://127.0.0.1:9009";
 
     /**
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
-    private final ObjectMapper  _objectMapper = new ObjectMapper();
+    private final ObjectMapper _objectMapper = new ObjectMapper();
 
     /**
      * 测试基本的增删改查

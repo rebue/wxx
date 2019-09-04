@@ -36,7 +36,7 @@ public class WxxMchJo implements Serializable {
      */
     @Id
     @Basic(optional = false)
-    @Column(name = "ID", nullable = false, length = 20)
+    @Column(name = "ID", nullable = false, length = 32)
     private String id;
 
     /**
