@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class WxxAppMo implements Serializable {
 
     /**
-     *    APP_ID
+     *    公众号的appid
      *
      *    数据库字段: WXX_APP.ID
      *
@@ -42,7 +42,7 @@ public class WxxAppMo implements Serializable {
     private String mchId;
 
     /**
-     *    APP_SECRET
+     *    公众号的app secret
      *
      *    数据库字段: WXX_APP.APP_SECRET
      *
@@ -51,7 +51,7 @@ public class WxxAppMo implements Serializable {
     private String appSecret;
 
     /**
-     *    TOKEN
+     *    公众号的token(微信公众号绑定网站的域名时，会通过此token进行校验)
      *
      *    数据库字段: WXX_APP.TOKEN
      *
@@ -60,7 +60,7 @@ public class WxxAppMo implements Serializable {
     private String token;
 
     /**
-     *    ENCODEING_AES_KEY
+     *    微信加解密消息用的key
      *
      *    数据库字段: WXX_APP.ENCODEING_AES_KEY
      *
@@ -128,7 +128,7 @@ public class WxxAppMo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     *    APP_ID
+     *    公众号的appid
      *
      *    数据库字段: WXX_APP.ID
      *
@@ -139,7 +139,7 @@ public class WxxAppMo implements Serializable {
     }
 
     /**
-     *    APP_ID
+     *    公众号的appid
      *
      *    数据库字段: WXX_APP.ID
      *
@@ -194,7 +194,7 @@ public class WxxAppMo implements Serializable {
     }
 
     /**
-     *    APP_SECRET
+     *    公众号的app secret
      *
      *    数据库字段: WXX_APP.APP_SECRET
      *
@@ -205,7 +205,7 @@ public class WxxAppMo implements Serializable {
     }
 
     /**
-     *    APP_SECRET
+     *    公众号的app secret
      *
      *    数据库字段: WXX_APP.APP_SECRET
      *
@@ -216,7 +216,7 @@ public class WxxAppMo implements Serializable {
     }
 
     /**
-     *    TOKEN
+     *    公众号的token(微信公众号绑定网站的域名时，会通过此token进行校验)
      *
      *    数据库字段: WXX_APP.TOKEN
      *
@@ -227,7 +227,7 @@ public class WxxAppMo implements Serializable {
     }
 
     /**
-     *    TOKEN
+     *    公众号的token(微信公众号绑定网站的域名时，会通过此token进行校验)
      *
      *    数据库字段: WXX_APP.TOKEN
      *
@@ -238,7 +238,7 @@ public class WxxAppMo implements Serializable {
     }
 
     /**
-     *    ENCODEING_AES_KEY
+     *    微信加解密消息用的key
      *
      *    数据库字段: WXX_APP.ENCODEING_AES_KEY
      *
@@ -249,7 +249,7 @@ public class WxxAppMo implements Serializable {
     }
 
     /**
-     *    ENCODEING_AES_KEY
+     *    微信加解密消息用的key
      *
      *    数据库字段: WXX_APP.ENCODEING_AES_KEY
      *

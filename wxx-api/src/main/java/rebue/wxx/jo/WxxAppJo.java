@@ -29,7 +29,7 @@ public class WxxAppJo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * APP_ID
+     * 公众账号ID
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -57,7 +57,7 @@ public class WxxAppJo implements Serializable {
     private String appSecret;
 
     /**
-     * TOKEN
+     * TOKEN-微信公众号绑定网站的域名时，会通过此token进行校验
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
@@ -66,7 +66,7 @@ public class WxxAppJo implements Serializable {
     private String token;
 
     /**
-     * ENCODEING_AES_KEY
+     * 微信加解密消息用的key
      *
      * @mbg.generated 自动生成，如需修改，请删除本行
      */
