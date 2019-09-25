@@ -12,3 +12,6 @@ application-prod.yml
 application-dev.yml
 .factorypath
 pom.xml.versionsBackup
+*.ldb
+*.pjb
+*.pdb
