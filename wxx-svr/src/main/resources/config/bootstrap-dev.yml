@@ -22,11 +22,18 @@ logging:
     com.netflix.loadbalancer: warn
     
 spring:
+  cloud:
+    config:
+      enabled: false
   rabbitmq:
       host: 127.0.0.1
       port: 5672
       username: guest
       password: guest
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/wxx?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: wxx
+    password: wxx
   redis:
     # 最大实例数
     maxTotal: 100
@@ -43,16 +50,4 @@ spring:
     port: 6379
   thymeleaf:
     cache: false
-    
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 10000
-ribbon:  
-  ReadTimeout: 10000  
-  ConnectTimeout: 10000
-
     

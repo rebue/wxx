@@ -3,7 +3,7 @@ package rebue.wxx.ro;
 import lombok.Data;
 
 @Data
-public class WxRequestWebAccessTokenRo {
+public class WxxRequestWebAccessTokenRo {
     private String  access_token;
     private Integer expires_in;
     private String  refresh_token;

@@ -7,7 +7,7 @@ import lombok.Data;
  *
  */
 @Data
-public class WxRequestRo {
+public class WxxRequestRo {
     /**
      * 错误编码
      */

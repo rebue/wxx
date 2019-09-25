@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -16,8 +15,9 @@
 	<modules>
 		<module>wxx-gen</module>
 		<module>wxx-api</module>
+		<module>wxx-app-redis-utils</module>
 		<module>wxx-access-token-svr</module>
-		<module>wxx-access-token-svr-feign</module>
+		<!-- <module>wxx-access-token-svr-feign</module> -->
 		<module>wxx-bll</module>
 		<module>wxx-svr</module>
 		<module>wxx-svr-feign</module>
@@ -28,6 +28,11 @@
 			<dependency>
 				<groupId>com.github.rebue.wxx</groupId>
 				<artifactId>wxx-api</artifactId>
+				<version>1.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.rebue.wxx</groupId>
+				<artifactId>wxx-app-redis-utils</artifactId>
 				<version>1.1.0</version>
 			</dependency>
 			<dependency>

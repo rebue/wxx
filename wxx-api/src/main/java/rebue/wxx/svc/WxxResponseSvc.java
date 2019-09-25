@@ -3,6 +3,7 @@ package rebue.wxx.svc;
 import java.io.IOException;
 import java.util.Map;
 
+import rebue.wxx.jo.WxxAppJo;
 import rebue.wxx.vo.WxAuthorizeVo;
 
 public interface WxxResponseSvc {
@@ -10,12 +11,12 @@ public interface WxxResponseSvc {
     /**
      * 提供给微信验证本服务器身份的接口
      */
-    String authorize(WxAuthorizeVo vo);
+    String authorize(String appId, WxAuthorizeVo vo);
 
     /**
      * 处理微信发来消息的接口
      */
-    String handleMsg(Map<String, Object> requestMap);
+    String handleMsg(String appId, Map<String, Object> requestMap);
 
     /**
      * 网页授权第一步：用户同意授权，微信服务器回调，获取到code
@@ -27,6 +28,6 @@ public interface WxxResponseSvc {
      *            获取到授权的code
      * @return 返回有微信用户信息的Map
      */
-    Map<String, Object> authorizeCode(String code) throws IOException;
+    Map<String, Object> authorizeCode(WxxAppJo appJo, String code) throws IOException;
 
 }

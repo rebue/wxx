@@ -1,4 +1,4 @@
-package rebue.wxx.access.token;
+package rebue.wxx;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;

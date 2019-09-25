@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class WxRequestUserInfoRo extends WxRequestRo {
+public class WxxRequestUserInfoRo extends WxxRequestRo {
     /**
      * 微信用户的openid
      */

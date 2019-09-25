@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class WxRequestShortUrlRo extends WxRequestRo {
+public class WxxRequestShortUrlRo extends WxxRequestRo {
     /**
      * 短url
      */
