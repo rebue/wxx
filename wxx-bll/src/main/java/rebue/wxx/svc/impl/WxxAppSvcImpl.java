@@ -80,17 +80,21 @@ public class WxxAppSvcImpl extends BaseSvcImpl<java.lang.String, WxxAppJo, WxxAp
     @Override
     public List<String> listAppIds() {
         final List<String> appIds = new LinkedList<>();
+        // 先从缓存中找出所有app
         List<WxxAppJo> appJos = appRedisSvc.listAll();
+        // 如果缓存中没有数据，则再去数据库中查找
         if (appJos == null || appJos.isEmpty()) {
             appJos = super.listJoAll();
+            // 从数据库中找到数据，遍历写入缓存，并添加到返回值中
             if (appJos != null && !appJos.isEmpty()) {
-                appJos = new LinkedList<>();
                 for (final WxxAppJo appJo : appJos) {
                     appRedisSvc.set(appJo);
                     appIds.add(appJo.getId());
                 }
             }
-        } else {
+        }
+        // 如果缓存中有数据，则直接添加到返回值中
+        else {
             for (final WxxAppJo appJo : appJos) {
                 appIds.add(appJo.getId());
             }
