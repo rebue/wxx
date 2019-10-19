@@ -3,10 +3,6 @@ debug: true
 server:
   port: 20080
 
-thymeleaf:
-    # 将模板文件配置在jar包外部，为jar包当前所在的路径的相对位置
-    prefix: classpath:./templates/
-
 eureka:
   client:
     service-url:
@@ -22,6 +18,9 @@ logging:
     com.netflix.loadbalancer: warn
     
 spring:
+  thymeleaf:
+    # 将模板文件配置在jar包外部，为jar包当前所在的路径的相对位置
+    prefix: classpath:./templates/
   cloud:
     config:
       enabled: false

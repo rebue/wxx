@@ -1,10 +1,6 @@
 server:
   port: 0
 
-thymeleaf:
-    # 将模板文件配置在jar包外部，为jar包当前所在的路径的相对位置
-    prefix: file:./templates/
-
 logging:
   config: classpath:config/log4j2.xml
   level:
@@ -22,6 +18,11 @@ eureka:
       defaultZone: http://127.0.0.1:8761/eureka/
 
 spring:
+  thymeleaf:
+    # 将模板文件配置在jar包外部，为jar包当前所在的路径的相对位置
+    prefix: file:./templates/
+    # 模板后缀
+    suffix: .html
   rabbitmq:
       host: 127.0.0.1
       port: 5672
